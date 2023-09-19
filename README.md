@@ -1,6 +1,3 @@
-Bien sûr, voici un exemple de fichier README pour votre projet Laravel utilisant l'API Pokemon TCG. Vous pouvez personnaliser ce README en ajoutant plus de détails spécifiques à votre projet.
-
-```markdown
 # Projet Pokemon TCG avec Laravel
 
 Ce projet est une application web Laravel qui utilise l'API Pokemon TCG pour afficher des informations sur les cartes Pokemon. Vous pouvez afficher une liste de cartes, ainsi que les détails d'une carte spécifique en fonction de son ID.
@@ -57,5 +54,3 @@ N'hésitez pas à contribuer à ce projet en soumettant des pull requests ou en 
 
 Merci d'utiliser cette application Pokemon TCG avec Laravel ! Amusez-vous bien !
 ```
-
-Assurez-vous de personnaliser ce README en fonction des détails spécifiques de votre projet, notamment les fonctionnalités, l'auteur, les instructions d'installation et de configuration, ainsi que toute autre information pertinente.
