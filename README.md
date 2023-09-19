@@ -6,12 +6,12 @@ Ce projet est une application web Laravel qui utilise l'API Pokemon TCG pour aff
 
 Pour exécuter ce projet localement, suivez les étapes ci-dessous :
 
-1. **Prérequis** : Assurez-vous d'avoir PHP, Composer et Laravel installés sur votre système. Si ce n'est pas le cas, vous pouvez les installer en suivant les instructions sur [le site officiel de Laravel](https://laravel.com/docs/8.x/installation).
+1. **Prérequis** : Assurez-vous d'avoir PHP, Composer et Laravel installés sur votre système. Si ce n'est pas le cas, vous pouvez les installer en suivant les instructions sur [le site officiel de Laravel](https://laravel.com/docs/10.x/installation).
 
 2. **Cloner le projet** : Clonez ce projet depuis GitHub en utilisant la commande suivante :
 
    ```bash
-   git clone https://github.com/votre-utilisateur/projet-pokemon-tcg-laravel.git
+   git clone https://github.com/fortyup/projet-pokemon-tcg-laravel.git
    ```
 
 3. **Installer les dépendances** : Accédez au répertoire du projet et installez les dépendances en exécutant la commande suivante :
