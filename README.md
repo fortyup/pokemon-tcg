@@ -29,8 +29,7 @@ Pour exécuter ce projet localement, suivez les étapes ci-dessous :
 5. **Configuration de l'API Pokemon TCG** : Dans le fichier `.env`, configurez les informations de l'API Pokemon TCG, telles que la clé d'API et l'URL de l'API.
 
    ```env
-   POKEMON_API_KEY=VotreCleAPI
-   POKEMON_API_URL=https://api.pokemontcg.io/v2/
+   POKEMON_TCG_API_KEY=VOTRE_CLE_API
    ```
 
 6. **Exécution du serveur de développement** : Démarrez le serveur de développement Laravel en utilisant la commande suivante :
