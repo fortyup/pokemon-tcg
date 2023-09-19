@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\PokemonController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,11 +15,16 @@ use App\Http\Controllers\IndexController;
 |
 */
 
+/* Routes de mon application */
+Route::get('/cards', [PokemonController::class, 'getCards'])->name('cards');
+Route::get('/cards/{id}', [PokemonController::class, 'getCard'])->name('card');
+
+/* Fin des routes de mon application */
 Route::get('/', IndexController::class);
 
-/*Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
-});*/
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
