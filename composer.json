@@ -10,7 +10,8 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
         "laravel/telescope": "^4.16",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "pokemon-tcg/pokemon-tcg-sdk-php": "^2.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

@@ -31,4 +31,11 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'pokemon-tcg' => [
+        'api_key' => env('POKEMON_TCG_API_KEY'),
+        'options' => [
+            'verify' => true,
+        ],
+    ],
+
 ];
