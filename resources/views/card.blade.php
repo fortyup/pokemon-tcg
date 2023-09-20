@@ -30,12 +30,25 @@
                 )
                     <p>Subtype: {{ implode(', ', $card['subtypes']) }}</p>
                 @endif
-                <!-- Si le pokemon a une capacité, l'afficher avec son type, son nom et son texte -->
-                @if(isset($card['abilities']))
-                    <p>Ability:</p>
-                    <p>Type: {{ $card['abilities'][0]['type'] }}</p>
-                    <p>Name: {{ $card['abilities'][0]['name'] }}</p>
-                    <p>Text: {{ $card['abilities'][0]['text'] }}</p>
+                <p>HP: {{ $card['hp'] }}</p>
+                <!-- Si le pokemon a plusieurs types, les afficher. Sinon n'afficher que le premier -->
+                @if(
+                    isset($card['types']) &&
+                    is_array($card['types']) &&
+                    count($card['types']) > 0
+                )
+                    <p>Type: {{ implode(', ', $card['types']) }}</p>
+                @endif
+                <!-- Si le pokemon a une capacité en [0], l'afficher avec son type, son nom et son texte pareil pour une capacité en [1] sinon ne rienn afficher -->
+                @if(isset($card['abilities']) && is_array($card['abilities']) && count($card['abilities']) > 0)
+                    <p>Abilities:</p>
+                    <ul>
+                        @foreach($card['abilities'] as $ability)
+                            <li>{{ $ability['type'] }}</li>
+                            <p>Name: {{ $ability['name'] }}</p>
+                            <p>Text: {{ $ability['text'] }}</p>
+                        @endforeach
+                    </ul>
                 @endif
                 <p>
                     Attacks:
@@ -106,7 +119,7 @@
                     <p>Artist: {{ $card['artist'] }}</p>
                     <!-- Afficher le nom de l'extension de la carte ainsi que le symbole de l'extension -->
                     <p>Set: {{ $card['set']['name'] }}</p>
-                    <img src="{{ $card['set']['images']['symbol'] }}" alt="{{ $card['set']['name'] }}" style="width: 20%;">
+                    <img src="{{ $card['set']['images']['symbol'] }}" alt="{{ $card['set']['name'] }}" style="width: 25px;">
             </div>
         </div>
     </div>
