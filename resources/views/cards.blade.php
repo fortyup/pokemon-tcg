@@ -15,12 +15,13 @@
     <div class="card">
         <h1>Ensemble des cartes</h1>
     </div>
-
-    <div class="card-list">
+    
+    <div class="card-list" style="display: flex; flex-wrap: wrap; justify-content: space-between">
         @foreach($cards as $card)
-            <div class="card">
+            <div class="card" style="width: calc(20% - 10px); margin: 5px">
                 <img src="{{ $card['images']['small'] }}" alt="{{ $card['name'] }}">
                 <h2>{{ $card['name'] }}</h2>
+                <a href="{{ route('card', ['id' => $card['id']]) }}">Voir la carte</a>
             </div>
         @endforeach
     </div>

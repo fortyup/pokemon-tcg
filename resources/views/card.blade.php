@@ -17,9 +17,9 @@
         <div class="card-container" style="display: flex">
             <div class="card-image">
                 <!-- Faire en sorte que l'image soit à 20% de sa taille originale -->
-                <img src="{{ $card['images']['large'] }}" alt="{{ $card['name'] }}" style="width: 80%;">
+                <img src="{{ $card['images']['large'] }}" alt="{{ $card['name'] }}" style="width: 310px; border-radius: 20px; box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.45);">
             </div>
-            <div class="card-info">
+            <div class="card-info" style="padding: 0.75rem; margin-left: 8%">
                 <h2>Name: {{ $card['name'] }}</h2>
                 <p>Supertype: {{ $card['supertype'] }}</p>
                 <!-- Si le pokemon a plusieurs sous-types, les afficher. Sinon n'afficher que le premier -->
