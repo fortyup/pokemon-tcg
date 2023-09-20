@@ -16,7 +16,7 @@ use App\Http\Controllers\PokemonController;
 */
 
 /* Routes de mon application */
-Route::get('/cards', [PokemonController::class, 'getCards'])->name('cards');
+Route::get('/cards', [PokemonController::class, 'getAllCards'])->name('cards');
 Route::get('/cards/{id}', [PokemonController::class, 'getCard'])->name('card');
 
 /* Fin des routes de mon application */

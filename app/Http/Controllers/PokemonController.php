@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Http;
+use Pokemon\Pokemon;
 
 class PokemonController extends Controller
 {
@@ -11,23 +12,26 @@ class PokemonController extends Controller
         return view('pokemon');
     }
 
-    public function getCards()
+    public function getPagination()
     {
-        // Faire une requête à l'API pour récupérer l'ensemble des cartes'
-        $response = Http::get('https://api.pokemontcg.io/v2/cards');
-        // Récupérer les données de la réponse
-        $data = $response->json();
-        // Retourner la vue "cards" en lui passant les données des cartes
-        return view('cards', ['cards' => $data['data']]);
+        /* @var Pagination $response */
+        $response = Pokemon::Card()->pagination();
+        return view('cards', ['pagination' => $response->toArray()]);
+    }
+
+    public function getAllCards()
+    {
+        $response = Pokemon::Card()->all();
+        foreach ($response as $model) {
+            $cards[] = $model->toArray();
+        }
+        return view('cards', ['cards' => $cards]);
     }
 
     public function getCard($id)
     {
-        // Faire une requête à l'API pour récupérer les données de la carte dont l'id est passé en paramètre de la route (ex: cards/xy7-54)
-        $response = Http::get('https://api.pokemontcg.io/v2/cards/' .$id);
-        // Récupérer les données de la réponse
-        $data = $response->json();
-        // Retourner la vue "card" en lui passant les données de la carte
-        return view('card', ['card' => $data['data']]);
+        $response = Pokemon::Card()->find($id);
+        return view('card', ['card' => $response->toArray()]);
+
     }
 }

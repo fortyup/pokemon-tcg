@@ -11,11 +11,11 @@
 @section('content')
     <title>Pokemon</title>
 
-    <!-- Afficher les données à partir de la méthode getCards() -->
+    <!-- Afficher les données à partir de la méthode getAllCards() -->
     <div class="card">
         <h1>Ensemble des cartes</h1>
     </div>
-    
+
     <div class="card-list" style="display: flex; flex-wrap: wrap; justify-content: space-between">
         @foreach($cards as $card)
             <div class="card" style="width: calc(20% - 10px); margin: 5px">
