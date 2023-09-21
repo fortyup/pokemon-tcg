@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Http;
+use Pokemon\Models\Pagination;
 use Pokemon\Pokemon;
 
 class PokemonController extends Controller
@@ -12,26 +12,20 @@ class PokemonController extends Controller
         return view('pokemon');
     }
 
-    public function getPagination()
-    {
-        /* @var Pagination $response */
-        $response = Pokemon::Card()->pagination();
-        return view('cards', ['pagination' => $response->toArray()]);
-    }
-
     public function getAllCards()
     {
-        $response = Pokemon::Card()->all();
-        foreach ($response as $model) {
-            $cards[] = $model->toArray();
+        $filePath = storage_path('app/all_cards.json');
+        $allCardsData = json_decode(file_get_contents($filePath), true);
+        if ($allCardsData === null) {
+            return view('error', ['message' => 'Impossible de charger les données des cartes.']);
         }
-        return view('cards', ['cards' => $cards]);
+        return view('cards', ['cards' => $allCardsData]);
     }
 
     public function getCard($id)
     {
         $response = Pokemon::Card()->find($id);
         return view('card', ['card' => $response->toArray()]);
-
     }
+
 }
