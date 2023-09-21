@@ -115,7 +115,7 @@
                     <!-- Afficher la rareté de la carte -->
                     <p>Rarity: {{ $card['rarity'] }}</p>
                     <!-- Afficher le numéro de la carte dans la série ex: 1 / 146 -->
-                    <p>Serie number: {{ $card['number'] }} / {{ $card['set']['total'] }}</p>
+                    <p>Serie number: {{ $card['number'] }} / {{ $card['set']['printedTotal'] }}</p>
                     <p>Artist: {{ $card['artist'] }}</p>
                     <!-- Afficher le nom de l'extension de la carte ainsi que le symbole de l'extension -->
                     <p>Set: {{ $card['set']['name'] }}</p>
