@@ -21,6 +21,7 @@
             <div class="card" style="width: calc(20% - 10px); margin: 5px">
                 <a href="{{ route('card', ['id' => $card['id']]) }}">
                     <img src="{{ $card['images']['small'] }}" alt="{{ $card['name'] }}" style="width: 245px;">
+                    <h2>{{ $card['name'] }}</h2>
                 </a>
             </div>
         @endforeach

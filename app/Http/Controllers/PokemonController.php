@@ -28,4 +28,9 @@ class PokemonController extends Controller
         return view('card', ['card' => $response->toArray()]);
     }
 
+    public function getError()
+    {
+        return view('error', ['message' => 'Une erreur est survenue.']);
+    }
+
 }
