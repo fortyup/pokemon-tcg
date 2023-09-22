@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Http;
 use Pokemon\Models\Pagination;
 use Pokemon\Pokemon;
 
@@ -26,6 +27,21 @@ class PokemonController extends Controller
     {
         $response = Pokemon::Card()->find($id);
         return view('card', ['card' => $response->toArray()]);
+    }
+
+    public function getSets()
+    {
+        $response = Http::get('https://api.pokemontcg.io/v2/sets');
+        $data = $response->json();
+        if (isset($data['data']) && !empty($data['data'])) {
+            $sets = $data['data'];
+            usort($sets, function ($a, $b) {
+                return strtotime($b['releaseDate']) - strtotime($a['releaseDate']);
+            });
+            return view('sets', ['sets' => $sets]);
+        } else {
+            return view('error', ['message' => 'Aucun set trouvé ou une erreur s\'est produite.']);
+        }
     }
 
     public function getError()
