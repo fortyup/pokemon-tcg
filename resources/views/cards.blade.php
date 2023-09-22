@@ -19,9 +19,9 @@
     <div class="card-list" style="display: flex; flex-wrap: wrap; justify-content: space-between">
         @foreach($cards as $card)
             <div class="card" style="width: calc(20% - 10px); margin: 5px">
-                <img src="{{ $card['images']['small'] }}" alt="{{ $card['name'] }}" style="width: 245px; height: auto">
-                <h2>{{ $card['name'] }}</h2>
-                <a href="{{ route('card', ['id' => $card['id']]) }}">Voir la carte</a>
+                <a href="{{ route('card', ['id' => $card['id']]) }}">
+                    <img src="{{ $card['images']['small'] }}" alt="{{ $card['name'] }}" style="width: 245px;">
+                </a>
             </div>
         @endforeach
     </div>
