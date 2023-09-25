@@ -2,13 +2,15 @@
 <head>
     @yield('meta')
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Pokemon TCG</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pokemon TCG</title>
+    @vite('resources/css/app.css')
 </head>
 <body>
 
 @section('sidebar')
+@endsection
 
     <div class="container">
         @yield('content')
