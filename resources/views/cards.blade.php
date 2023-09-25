@@ -23,6 +23,10 @@
                     <img src="{{ $card['images']['small'] }}" alt="{{ $card['name'] }}" style="width: 245px;">
                     <h2>{{ $card['name'] }}</h2>
                 </a>
+                <!-- Link to the set -->
+                <a href="{{ route('set', ['id' => $card['set']['id']]) }}">
+                    <p>{{ $card['set']['name'] }}</p>
+                </a>
             </div>
         @endforeach
     </div>
