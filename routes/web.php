@@ -23,7 +23,7 @@ Route::get('/sets/{id}', [PokemonController::class, 'getSet'])->name('set');
 Route::get('/error', [PokemonController::class, 'getError'])->name('error');
 
 /* Fin des routes de mon application */
-Route::get('/', IndexController::class);
+Route::get('/', IndexController::class)->name('index');
 
 Route::get('/welcome', function () {
     return view('welcome');
