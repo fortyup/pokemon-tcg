@@ -17,7 +17,9 @@
                 <option value="Desc">Desc</option>
             </select>
             <!-- Search button -->
-            <input type="submit" value="Search">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <input type="submit" value="Search">
+            </button>
         </form>
 
         <!-- Displays the list of cards in the set -->
