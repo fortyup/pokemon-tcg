@@ -17,9 +17,9 @@
             <div>
                 <!-- Faire en sorte que l'image soit à 20% de sa taille originale -->
                 <img src="{{ $card['images']['large'] }}" alt="{{ $card['name'] }}"
-                     style="max-width:310px; border-radius: 20px; box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.45);">
+                     style="box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.45);" class="max-w-xs rounded-2xl">
             </div>
-            <div class="" style="padding: 0.75rem; margin-left: 8%">
+            <div class="p-3 ml-40">
                 <section>
                     <div class="flex flex-row justify-between">
                         <div class="flex-column">
@@ -38,35 +38,39 @@
                             )
                                 @foreach($card['types'] as $type)
                                     <img src="{{ asset('/images/type/'.$type.'.png') }}" alt="{{ $type }}"
-                                         style="width: 25px; height: 25px">
+                                         class="h-6 w-6 mr-1">
                                 @endforeach
                             @endif
                         </div>
                     </div>
                 </section>
-                <hr style="display: block;height: 2px;margin: 1.5rem 0;background-color: #d3d3d3;">
+                <hr style="background-color: #d3d3d3;" class="block h-0.5 m-6 mx-0">
                 <!-- Si le pokemon a une capacité en [0], l'afficher avec son type, son nom et son texte pareil pour une capacité en [1] sinon ne rienn afficher -->
                 <section>
                 @if(isset($card['abilities']) && is_array($card['abilities']) && count($card['abilities']) > 0)
                         <h2 class="uppercase mb-2">Abilities:</h2>
-                    <ul>
+                        <div class="mb-5">
                         @foreach($card['abilities'] as $ability)
-                            <div class="flex flex-row mb-1">
-                                <img src="{{ asset('/images/ability/'.$ability['type'].'.png') }}"
-                                     style="width: 100px; height: auto" alt="{{ $ability['type'] }}">
-                                <p class="text-2xl">{{ $ability['name'] }}</p>
+                                <div class="flex">
+                                    <!-- si l'abilité = pokémon power alors ne rien afficher -->
+                                    @if($ability['type'] != 'Pokémon Power')
+                                        <img src="{{ asset('/images/ability/'.$ability['type'].'.png') }}"
+                                             class="w-24 h-auto" alt="{{ $ability['type'] }}">
+                                        <p class="text-2xl ml-2">{{ $ability['name'] }}</p>
+                                    @else
+                                        <p class="text-2xl">{{ $ability['name'] }}</p>
+                                    @endif
                             </div>
-                            <p class="mb-5">{{ $ability['text'] }}</p>
+                                <p>{{ $ability['text'] }}</p>
                         @endforeach
-                    </ul>
+                        </div>
                 @endif
                 </section>
                 <!-- Section pour afficher les attaques du pokémon. Si le pokémon n'a pas d'attaque, ne rien afficher. Sinon afficher les attaques -->
                 <section>
                     @if(isset($card['attacks']) && is_array($card['attacks']) && count($card['attacks']) > 0)
-                        <h2>Attacks:</h2>
-
-                        <div>
+                        <h2 class="uppercase mb-2">Attacks:</h2>
+                        <div class="mb-5">
                             @if(isset($card['attacks']) && is_array($card['attacks']) && count($card['attacks']) > 0)
                                 @foreach($card['attacks'] as $attack)
                                     <div class="flex justify-between items-center">
@@ -75,7 +79,7 @@
                                                 @foreach($attack['cost'] as $cost)
                                                     @if(isset($attack['cost']) && is_array($attack['cost']) && count($attack['cost']) > 0)
                                                         <img src="{{ asset('/images/type/'.$cost.'.png') }}"
-                                                             alt="{{ $cost }}" class="h-6 w-6">
+                                                             alt="{{ $cost }}" class="h-6 w-6 mr-1">
                                                 @endif
                                                 @endforeach
                                             @endif
@@ -95,7 +99,7 @@
                 <!-- Une carte peut avoir plusieurs règles. Afficher toutes les règles -->
                 <section>
                     @if(isset($card['rules']) && is_array($card['rules']) && count($card['rules']) > 0)
-                        <h2 class="uppercase mb-2 mt-5">Rules:</h2>
+                        <h2 class="uppercase mb-2">Rules:</h2>
                             @foreach($card['rules'] as $rule)
                             <p class="mb-2">{{ $rule }}</p>
                             @endforeach
@@ -106,12 +110,12 @@
                     <div class="grid grid-cols-3 gap-4 mt-5">
                         <div>
                             @if(isset($card['weaknesses']) && is_array($card['weaknesses']) && count($card['weaknesses']) > 0)
-                                <h2 class="uppercase mb2">Weakness:</h2>
+                                <h2 class="uppercase mb-2">Weakness:</h2>
                                 @foreach($card['weaknesses'] as $weaknesses)
                                     <div class="flex flex-row items-center font-bold">
                                         <img src="{{ asset('/images/type/'.$weaknesses['type'].'.png') }}"
-                                             alt="{{ $weaknesses['type'] }}" style="width: 25px;">
-                                        <p>{{ $weaknesses['value'] }}</p>
+                                             alt="{{ $weaknesses['type'] }}" class="w-6 h-auto">
+                                        <p class="ml-2">{{ $weaknesses['value'] }}</p>
                                     </div>
                             @endforeach
                             @else
@@ -127,8 +131,8 @@
                             @foreach($card['resistances'] as $resistance)
                                     <div class="flex flex-row items-center font-bold">
                                         <img src="{{ asset('/images/type/'.$resistance['type'].'.png') }}"
-                                             alt="{{ $resistance['type'] }}" style="width: 25px;">
-                                        <p>Value: {{ $resistance['value'] }}</p>
+                                             alt="{{ $resistance['type'] }}" class="w-6 h-auto">
+                                        <p class="ml-2">Value: {{ $resistance['value'] }}</p>
                                     </div>
                             @endforeach
                             @else
@@ -145,7 +149,7 @@
                                     @foreach($card['retreatCost'] as $retreatCost)
                                         <img src="{{ asset('/images/type/'.$retreatCost.'.png') }}"
                                              alt="{{ $retreatCost }}"
-                                             style="width: 25px; height: 25px">
+                                             class="h-6 w-6 mr-1">
                                     @endforeach
                                 </div>
                             @else
@@ -173,7 +177,7 @@
                                class="flex flex-row items-center font-bold">
                                 <p class="mr-2">{{ $card['set']['name'] }}</p>
                                 <img src="{{ $card['set']['images']['symbol'] }}" alt="{{ $card['set']['name'] }}"
-                                     style="width: 25px;">
+                                     class="w-6 h-auto">
                         </a>
                         </div>
                     </div>

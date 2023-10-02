@@ -25,9 +25,9 @@
         <!-- Displays the list of cards in the set -->
             <div class="card-list flex flex-wrap justify-between">
                 @foreach($cards as $card)
-                    <div class="card hover:scale-125 transition" style="width: calc(20% - 10px); margin: 5px">
+                    <div class="card hover:scale-125 transition m-1 w-[calc(20%-10px)]">
                             <a href="{{ route('card', ['id' => $card['id']]) }}">
-                                <img src="{{ $card['images']['small'] }}" style="box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.45); border-radius: 10px" alt="{{ $card['name'] }}">
+                                <img src="{{ $card['images']['small'] }}" class="rounded-2xl" style="box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.45);" alt="{{ $card['name'] }}">
                             </a>
                     </div>
                 @endforeach

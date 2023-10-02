@@ -16,11 +16,11 @@
         <h1>Ensemble des cartes</h1>
     </div>
 
-    <div class="card-list" style="display: flex; flex-wrap: wrap; justify-content: space-between">
+    <div class="card-list flex flex-wrap justify-between">
         @foreach($cards as $card)
-            <div class="card" style="width: calc(20% - 10px); margin: 5px">
+            <div class="card w-[calc(20%-10px)] m-1 hover:scale-125 transition">
                 <a href="{{ route('card', ['id' => $card['id']]) }}">
-                    <img src="{{ $card['images']['small'] }}" alt="{{ $card['name'] }}" style="width: 245px; border-radius: 10px;box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.45)">
+                    <img src="{{ $card['images']['small'] }}" alt="{{ $card['name'] }}" class="rounded-2xl w-60" style="box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.45)">
                     <h2>{{ $card['name'] }}</h2>
                 </a>
                 <!-- Link to the set -->
