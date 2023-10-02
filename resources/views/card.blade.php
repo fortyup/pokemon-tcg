@@ -64,33 +64,35 @@
                 <!-- Section pour afficher les attaques du pokémon. Si le pokémon n'a pas d'attaque, ne rien afficher. Sinon afficher les attaques -->
                 <section>
                     @if(isset($card['attacks']) && is_array($card['attacks']) && count($card['attacks']) > 0)
-                        <h2 class="uppercase mb-2">Attacks:</h2>
+                        <h2>Attacks:</h2>
 
-                    <div class="flex flex-row items-center justify-between">
-                        <div class="flex flex-row items-center">
+                        <div>
                             @if(isset($card['attacks']) && is_array($card['attacks']) && count($card['attacks']) > 0)
-                        @foreach($card['attacks'] as $attack)
-                            <!-- Si le pokemon a plusieurs coûts d'attaque, les afficher. Sinon n'afficher que le premier -->
-                                    <div class="flex flex-row">
-                            @if(isset($attack['cost']) && is_array($attack['cost']) && count($attack['cost']) > 0)
-                                    @foreach($attack['cost'] as $cost)
-                                    @if(isset($attack['cost']) && is_array($attack['cost']) && count($attack['cost']) > 0)
-                                        <img src="{{ asset('/images/type/'.$cost.'.png') }}" alt="{{ $cost }}"
-                                             style="width: 25px; height: 25px">
+                                @foreach($card['attacks'] as $attack)
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center">
+                                            @if(isset($attack['cost']) && is_array($attack['cost']) && count($attack['cost']) > 0)
+                                                @foreach($attack['cost'] as $cost)
+                                                    @if(isset($attack['cost']) && is_array($attack['cost']) && count($attack['cost']) > 0)
+                                                        <img src="{{ asset('/images/type/'.$cost.'.png') }}"
+                                                             alt="{{ $cost }}" class="h-6 w-6">
                                                 @endif
-                                    @endforeach
-                                            <p class="text-2xl ml-1">{{ $attack['name'] }}</p>
+                                                @endforeach
+                                            @endif
+                                            <h2 class="text-2xl ml-2">{{ $attack['name'] }}</h2>
+                                        </div>
+                                        <div>
+                                            <p>{{ $attack['damage'] }}</p>
+                                        </div>
                                     </div>
-                            @endif
-                                    <p class="text-2xl">{{ $attack['damage'] }}</p>
                                     <p>{{ $attack['text'] }}</p>
+                                @endforeach
+                            @endif
                         </div>
-                    </div>
-                        @endforeach
                     @endif
-                        @endif
                 </section>
-                    <!-- Une carte peut avoir plusieurs règles. Afficher toutes les règles -->
+
+                <!-- Une carte peut avoir plusieurs règles. Afficher toutes les règles -->
                 <section>
                     @if(isset($card['rules']) && is_array($card['rules']) && count($card['rules']) > 0)
                         <h2 class="uppercase mb-2 mt-5">Rules:</h2>
