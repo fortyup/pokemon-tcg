@@ -17,7 +17,7 @@
             <div>
                 <!-- Faire en sorte que l'image soit à 20% de sa taille originale -->
                 <img src="{{ $card['images']['large'] }}" alt="{{ $card['name'] }}"
-                     style="box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.45);" class="max-w-xs rounded-2xl">
+                     style="box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.45);" class="max-w-md rounded-3xl">
             </div>
             <div class="p-3 ml-40">
                 <section>

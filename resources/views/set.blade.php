@@ -7,9 +7,9 @@
         <!-- le faire sous forme de menu déroulant -->
         <form action="{{ route('set', ['id' => $set['id']]) }}" method="get">
             <select name="order">
+                <option value="set">Set/Number</option>
                 <option value="name">Name</option>
                 <option value="released">Release Date</option>
-                <option value="set">Set/Number</option>
                 <option value="rarity">Rarity</option>
             </select>
             <select name="sort">
