@@ -6,17 +6,20 @@
         <!-- Filter by type, name, set/number, rarity -->
         <!-- le faire sous forme de menu déroulant -->
         <form action="{{ route('set', ['id' => $set['id']]) }}" method="get">
-            <select name="order">
-                <option value="set">Set/Number</option>
-                <option value="name">Name</option>
-                <option value="released">Release Date</option>
-                <option value="rarity">Rarity</option>
-            </select>
-            <select name="sort">
-                <option value="Asc">Asc</option>
-                <option value="Desc">Desc</option>
-            </select>
-            <!-- Search button -->
+            <label>
+                <select name="order">
+                    <option value="set">Set/Number</option>
+                    <option value="name">Name</option>
+                    <option value="released">Release Date</option>
+                    <option value="rarity">Rarity</option>
+                </select>
+            </label>
+            <label>
+                <select name="sort">
+                    <option value="Asc">Asc</option>
+                    <option value="Desc">Desc</option>
+                </select>
+            </label>
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 <input type="submit" value="Search">
             </button>
