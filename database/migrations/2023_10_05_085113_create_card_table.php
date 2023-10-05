@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('card', function (Blueprint $table) {
-            $table->primary('id');
-            $table->string('id');
+            $table->id();
+            $table->string('id_card');
             $table->string('name');
             $table->string('supertype');
             $table->string('level');
@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('valueResistance');
             $table->json('retreatCost');
             $table->integer('convertedRetreatCost');
-            $table->string('set_id');
+            $table->unsignedBigInteger('set_id'); // foreign key
             $table->foreign('set_id')->references('id')->on('set');
             $table->timestamps();
         });
