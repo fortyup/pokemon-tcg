@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Set extends Model
 {
     protected $table = 'set';
-    protected $fillable = ['id', 'name', 'series', 'printedTotal', 'total', 'ptcgoCode', 'releaseDate', 'updatedAt', 'symbol', 'logo'];
+    protected $fillable = ['id', 'id_set', 'name', 'series', 'printedTotal', 'total', 'ptcgoCode', 'releaseDate', 'updatedAt', 'symbol', 'logo'];
 
     // Relations avec d'autres modèles
     public function legalities()
