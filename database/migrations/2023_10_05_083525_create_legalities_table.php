@@ -12,10 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('legalities', function (Blueprint $table) {
-            $table->string('set_id');
-            $table->foreign('set_id')->references('id')->on('set');
+            $table->id();
             $table->string('format');
             $table->string('status');
+            $table->unsignedBigInteger('set_id'); // foreign key
+            $table->foreign('set_id')->references('id')->on('set');
         });
     }
 

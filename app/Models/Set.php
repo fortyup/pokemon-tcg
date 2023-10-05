@@ -2,10 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Set extends Model
 {
-    use HasFactory;
+    protected $table = 'set';
+    protected $fillable = ['id', 'name', 'series', 'printedTotal', 'total', 'ptcgoCode', 'releaseDate', 'updatedAt', 'symbol', 'logo'];
+
+    // Relations avec d'autres modèles
+    public function legalities()
+    {
+        return $this->hasMany(Legality::class, 'set_id');
+    }
 }
