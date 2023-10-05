@@ -12,10 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('national_pokemon_number', function (Blueprint $table) {
-            $table->string('card_id');
-            $table->foreign('card_id')->references('id')->on('card');
+            $table->id();
             $table->json('national_pokemon_number');
             $table->timestamps();
+            $table->unsignedBigInteger('card_id'); // foreign key
+            $table->foreign('card_id')->references('id')->on('card');
         });
     }
 

@@ -34,4 +34,8 @@ class Card extends Model
     {
         return $this->hasMany(Subtype::class, 'card_id');
     }
+    public function nationalPokemonNumber()
+    {
+        return $this->hasOne(NationalPokemonNumber::class, 'card_id');
+    }
 }
