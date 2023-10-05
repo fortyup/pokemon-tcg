@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Card extends Model
 {
     protected $table = 'card';
-    protected $fillable = ['id', 'name', 'supertype', 'level', 'hp', 'evolvesFrom', 'flavorText', 'number', 'artist', 'rarity', 'smallImage', 'largeImage', 'typeWeakness', 'valueWeakness', 'typeResistance', 'valueResistance', 'retreatCost', 'convertedRetreatCost', 'set_id'];
+    protected $fillable = ['id','id_card', 'name', 'supertype', 'level', 'hp', 'evolvesFrom', 'flavorText', 'number', 'artist', 'rarity', 'smallImage', 'largeImage', 'typeWeakness', 'valueWeakness', 'typeResistance', 'valueResistance', 'retreatCost', 'convertedRetreatCost', 'set_id'];
 
     // Relations avec d'autres modèles
     public function set()

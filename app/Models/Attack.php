@@ -9,6 +9,7 @@ class Attack extends Model
     protected $table = 'attack';
 
     protected $fillable = [
+        'id',
         'name',
         'cost',
         'convertedEnergyCost',

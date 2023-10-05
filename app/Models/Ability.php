@@ -9,6 +9,7 @@ class Ability extends Model
     protected $table = 'ability';
 
     protected $fillable = [
+        'id',
         'name',
         'text',
         'type',

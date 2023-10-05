@@ -9,6 +9,7 @@ class Type extends Model
     protected $table = 'type';
 
     protected $fillable = [
+        'id',
         'type',
         'card_id',
     ];

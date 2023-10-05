@@ -9,6 +9,7 @@ class Subtype extends Model
     protected $table = 'subtype';
 
     protected $fillable = [
+        'id',
         'subtype',
         'card_id',
     ];

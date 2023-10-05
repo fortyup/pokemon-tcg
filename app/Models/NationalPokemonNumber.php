@@ -9,6 +9,7 @@ class NationalPokemonNumber extends Model
     protected $table = 'national_pokemon_number';
 
     protected $fillable = [
+        'id',
         'national_pokemon_number',
         'card_id',
     ];
