@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('attack', function (Blueprint $table) {
-            $table->string('card_id');
-            $table->foreign('card_id')->references('id')->on('card');
+            $table->id();
             $table->string('name');
             $table->json('cost');
             $table->integer('convertedEnergyCost');
             $table->string('damage');
             $table->text('text');
+            $table->unsignedBigInteger('card_id'); // foreign key
+            $table->foreign('card_id')->references('id')->on('card');
             $table->timestamps();
         });
     }

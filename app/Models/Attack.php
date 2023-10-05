@@ -2,10 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Attack extends Model
 {
-    use HasFactory;
+    protected $table = 'attack';
+
+    protected $fillable = [
+        'name',
+        'cost',
+        'convertedEnergyCost',
+        'damage',
+        'text',
+        'card_id',
+    ];
+
+    public function card()
+    {
+        return $this->belongsTo(Card::class, 'card_id');
+    }
 }
