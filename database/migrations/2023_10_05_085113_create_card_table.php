@@ -23,9 +23,15 @@ return new class extends Migration
             $table->integer('number');
             $table->string('artist');
             $table->string('rarity');
-            $table->string('set_id');
             $table->string('smallImage');
             $table->string('largeImage');
+            $table->string('typeWeakness');
+            $table->string('valueWeakness');
+            $table->string('typeResistance');
+            $table->string('valueResistance');
+            $table->json('retreatCost');
+            $table->integer('convertedRetreatCost');
+            $table->string('set_id');
             $table->foreign('set_id')->references('id')->on('set');
             $table->timestamps();
         });
