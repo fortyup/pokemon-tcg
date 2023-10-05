@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('id');
             $table->string('name');
             $table->string('series');
-            $table->string('printedTotal');
-            $table->string('total');
+            $table->integer('printedTotal');
+            $table->integer('total');
             $table->string('ptcgoCode');
             $table->date('releaseDate');
             $table->datetime('updatedAt');

@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('supertype');
             $table->string('level');
-            $table->string('hp');
+            $table->integer('hp');
             $table->string('evolvesFrom');
-            $table->string('flavorText');
-            $table->string('number');
+            $table->text('flavorText');
+            $table->integer('number');
             $table->string('artist');
             $table->string('rarity');
             $table->string('set_id');
