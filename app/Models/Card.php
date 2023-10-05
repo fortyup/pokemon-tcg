@@ -30,4 +30,8 @@ class Card extends Model
     {
         return $this->hasMany(Type::class, 'card_id');
     }
+    public function subtypes()
+    {
+        return $this->hasMany(Subtype::class, 'card_id');
+    }
 }
