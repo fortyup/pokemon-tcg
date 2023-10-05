@@ -22,4 +22,8 @@ class Card extends Model
     {
         return $this->hasMany(Attack::class, 'card_id');
     }
+    public function abilities()
+    {
+        return $this->hasMany(Ability::class, 'card_id');
+    }
 }
