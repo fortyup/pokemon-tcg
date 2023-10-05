@@ -7,5 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rule extends Model
 {
-    use HasFactory;
+    protected $table = 'rules';
+    protected $fillable = ['id', 'rule', 'card_id'];
+
+    public function card()
+    {
+        return $this->belongsTo(Card::class, 'card_id');
+    }
+
 }

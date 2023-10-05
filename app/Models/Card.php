@@ -14,4 +14,9 @@ class Card extends Model
     {
         return $this->belongsTo(Set::class, 'set_id');
     }
+
+    public function rules()
+    {
+        return $this->hasMany(Rule::class, 'card_id');
+    }
 }
