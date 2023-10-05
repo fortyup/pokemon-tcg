@@ -26,4 +26,8 @@ class Card extends Model
     {
         return $this->hasMany(Ability::class, 'card_id');
     }
+    public function types()
+    {
+        return $this->hasMany(Type::class, 'card_id');
+    }
 }
