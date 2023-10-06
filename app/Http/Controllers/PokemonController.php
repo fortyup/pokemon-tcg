@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\Set;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Pokemon\Models\Pagination;
@@ -59,23 +60,13 @@ class PokemonController extends Controller
         }
     }
 
-    public function getSet($id, Request $request)
+    public function getSet(Set $set, Request $request)
     {
-        $response = Http::get('https://api.pokemontcg.io/v2/sets/' . $id);
-        $data = $response->json();
-        if (isset($data['data']) && !empty($data['data'])) {
-            $set = $data['data'];
-            $response = Http::get('https://api.pokemontcg.io/v2/cards?q=set.id:' . $id . '&orderBy=set.releaseDate');
-            $data = $response->json();
-            if (isset($data['data']) && !empty($data['data'])) {
-                $cards = $data['data'];
-                return view('set', ['set' => $set, 'cards' => $cards]);
-            } else {
-                return view('error', ['message' => 'Aucune carte trouvée ou une erreur s\'est produite.']);
-            }
-        } else {
-            return view('error', ['message' => 'Aucun set trouvé ou une erreur s\'est produite.']);
-        }
+        $cards = $set->cards;
+
+        return view('set', [
+            'set' => $set,
+            'cards' => $cards]);
     }
 
     public function getError()

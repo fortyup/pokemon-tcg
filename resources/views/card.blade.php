@@ -78,8 +78,9 @@
                                     <p>{{ $attack->damage }}</p>
                                 </div>
                                 <p>{{ $attack->text }}</p>
+                            @endforeach
                         </div>
-                                                @endforeach
+
                 </section>
 
                 <!-- Une carte peut avoir plusieurs règles. Afficher toutes les règles -->
@@ -157,7 +158,7 @@
                         <div>
                             <!-- Afficher le nom de l'extension de la carte ainsi que le symbole de l'extension -->
                             <h2 class="uppercase mb-2">Set:</h2>
-                            <a href="{{ route('set', ['id' => $set->id_set]) }}"
+                            <a href="{{ route('set', ['set' => $set->id_set]) }}"
                                class="flex flex-row items-center font-bold">
                                 <p class="mr-2">{{ $set->name }}</p>
                                 <img src="{{ $set->symbol }}" alt="{{ $set->name }}"

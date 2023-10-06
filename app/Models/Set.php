@@ -14,4 +14,14 @@ class Set extends Model
     {
         return $this->hasMany(Legality::class, 'set_id');
     }
+
+    public function cards()
+    {
+        return $this->hasMany(Card::class, 'set_id');
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'id_set';
+    }
 }
