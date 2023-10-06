@@ -6,8 +6,6 @@ use App\Models\Card;
 use App\Models\Set;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Pokemon\Models\Pagination;
-use Pokemon\Pokemon;
 
 class PokemonController extends Controller
 {
@@ -18,12 +16,10 @@ class PokemonController extends Controller
 
     public function getAllCards()
     {
-        $filePath = storage_path('app/all_cards.json');
-        $allCardsData = json_decode(file_get_contents($filePath), true);
-        if ($allCardsData === null) {
-            return view('error', ['message' => 'Impossible de charger les données des cartes.']);
-        }
-        return view('cards', ['cards' => $allCardsData]);
+        $cards = Card::all();
+        // Récupération du nom et des id_set des sets
+        $sets = Set::all();
+        return view('cards', ['cards' => $cards, 'sets' => $sets]);
     }
 
     public function getCard(Card $card)

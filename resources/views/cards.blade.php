@@ -18,16 +18,17 @@
 
     <div class="card-list flex flex-wrap justify-between">
         @foreach($cards as $card)
-            <div class="card w-[calc(20%-10px)] m-1 hover:scale-125 transition">
-                <a href="{{ route('card', ['id' => $card['id']]) }}">
-                    <img src="{{ $card['images']['small'] }}" alt="{{ $card['name'] }}" class="rounded-2xl w-60" style="box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.45)">
+            <div class="card w-[calc(20%-10px)] m-1">
+                <a href="{{ route('card', ['card' => $card->id_card]) }}">
+                    <img src="{{ $card->smallImage }}" alt="{{ $card->name }}" class="rounded-2xl w-60 hover:scale-125 transition" style="box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.45)">
                     <h2>{{ $card['name'] }}</h2>
                 </a>
                 <!-- Link to the set -->
-                <a href="{{ route('set', ['id' => $card['set']['id']]) }}">
-                    <p>{{ $card['set']['name'] }}</p>
+                <a href="{{ route('set', ['set' => $card->set->id_set]) }}">
+                    <p>{{ $card->set->name }}</p>
                 </a>
             </div>
+
         @endforeach
     </div>
 @endsection
