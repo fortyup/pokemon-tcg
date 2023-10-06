@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Card;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Pokemon\Models\Pagination;
 use Pokemon\Pokemon;
@@ -23,10 +25,23 @@ class PokemonController extends Controller
         return view('cards', ['cards' => $allCardsData]);
     }
 
-    public function getCard($id)
+    public function getCard(Card $card)
     {
-        $response = Pokemon::Card()->find($id);
-        return view('card', ['card' => $response->toArray()]);
+        $set = $card->set;
+        $subtypes = $card->subtypes;
+        $types = $card->types;
+        $attacks = $card->attacks;
+        $rules = $card->rules;
+        $abilities = $card->abilities;
+        return view('card', [
+            'card' => $card,
+            'set' => $set,
+            'subtypes' => $subtypes,
+            'types' => $types,
+            'attacks' => $attacks,
+            'rules' => $rules,
+            'abilities' => $abilities
+        ]);
     }
 
     public function getSets()
@@ -44,7 +59,7 @@ class PokemonController extends Controller
         }
     }
 
-    public function getSet($id)
+    public function getSet($id, Request $request)
     {
         $response = Http::get('https://api.pokemontcg.io/v2/sets/' . $id);
         $data = $response->json();

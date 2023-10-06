@@ -18,6 +18,15 @@ class Attack extends Model
         'card_id',
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'cost' => 'array',
+    ];
+
     public function card()
     {
         return $this->belongsTo(Card::class, 'card_id');

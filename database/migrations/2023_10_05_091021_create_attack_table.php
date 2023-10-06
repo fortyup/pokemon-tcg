@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('attack', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->json('cost');
-            $table->integer('convertedEnergyCost');
-            $table->string('damage');
-            $table->text('text');
+            $table->string('name')->nullable();
+            $table->json('cost')->nullable();
+            $table->integer('convertedEnergyCost')->nullable();
+            $table->string('damage')->nullable();
+            $table->text('text')->nullable();
             $table->unsignedBigInteger('card_id'); // foreign key
             $table->foreign('card_id')->references('id')->on('card');
             $table->timestamps();

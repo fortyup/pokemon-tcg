@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('rules', function (Blueprint $table) {
             $table->id();
-            $table->text('rule');
+            $table->text('rule')->nullable();
             $table->unsignedBigInteger('card_id'); // foreign key
             $table->foreign('card_id')->references('id')->on('card');
 
