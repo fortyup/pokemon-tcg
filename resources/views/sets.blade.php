@@ -4,7 +4,7 @@
     <h1 class="text-4xl">All sets</h1>
     <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-4 h-full">
         @foreach($sets as $set)
-            <div class="bg-white rounded-lg shadow-md p-4">
+            <div class="bg-white rounded-lg shadow-md p-4 dark:bg-slate-600">
                 <a href="{{ route('set', ['set' => $set->id_set]) }}">
                     <div class="h-36 flex w-full justify-center items-center">
                         <img src="{{ $set->logo }}" alt="{{ $set->name }}"

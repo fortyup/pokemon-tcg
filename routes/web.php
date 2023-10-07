@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 /* Routes de mon application */
 Route::get('/cards', [PokemonController::class, 'getAllCards'])->name('cards');
+Route::post('/cards', [PokemonController::class, 'getAllCards'])->name('process.cards');
 Route::get('/cards/{card}', [PokemonController::class, 'getCard'])->name('card');
 Route::get('/sets', [PokemonController::class, 'getSets'])->name('sets');
 Route::get('/sets/{set}', [PokemonController::class, 'getSet'])->name('set');

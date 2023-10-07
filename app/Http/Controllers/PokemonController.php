@@ -15,13 +15,28 @@ class PokemonController extends Controller
         return view('pokemon');
     }
 
-    public function getAllCards()
+    public function getAllCards(Request $request)
     {
-        $cards = Card::all();
+        // Récupération de la requête de recherche depuis le paramètre "q"
+        $searchQuery = $request->input('search');
+
+        // Récupération des cartes en fonction de la recherche
+        $query = Card::query();
+
+        // Si une recherche a été effectuée, filtrez les cartes par nom en utilisant "LIKE"
+        if ($searchQuery) {
+            $query->where('name', 'LIKE', '%' . $searchQuery . '%');
+        }
+
+        // Récupération des cartes filtrées
+        $cards = $query->get();
+
         // Récupération du nom et des id_set des sets
         $sets = Set::all();
+
         return view('cards', ['cards' => $cards, 'sets' => $sets]);
     }
+
 
     public function getCard(Card $card)
     {

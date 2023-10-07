@@ -17,9 +17,9 @@
                 This website is a collection of all the cards from the Pokémon TCG.
             </h2>
             <!-- Faire en sorte que le formulaire soit centré et prenne toute la largeur -->
-                <form action="" method="POST" class="flex flex-row items-center">
-                    <input type="text" name="search" id="search" class="border-2 border-gray-300 rounded-md p-2 m-2"
-                           placeholder="Search for a card">
+                <form action="{{route('cards')}}" method="GET" class="flex flex-row items-center">
+                    <input type="text" name="search" id="search" class="border-2 border-gray-300 rounded-md p-2 m-2 dark:bg-slate-300 dark:text-white dark:text-black"
+                           placeholder="Search a card by name">
                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Search
                     </button>
