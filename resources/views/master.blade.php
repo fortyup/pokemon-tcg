@@ -44,7 +44,7 @@
     @endif
 </header>
 
-<div class="container max-w-full max-h-auto p-12">
+<div class="container max-w-full p-12">
     @yield('content')
 </div>
 </body>
