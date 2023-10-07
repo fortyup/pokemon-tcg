@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\Legality;
 use App\Models\Set;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -43,17 +44,10 @@ class PokemonController extends Controller
 
     public function getSets()
     {
-        $response = Http::get('https://api.pokemontcg.io/v2/sets');
-        $data = $response->json();
-        if (isset($data['data']) && !empty($data['data'])) {
-            $sets = $data['data'];
-            usort($sets, function ($a, $b) {
-                return strtotime($b['releaseDate']) - strtotime($a['releaseDate']);
-            });
-            return view('sets', ['sets' => $sets]);
-        } else {
-            return view('error', ['message' => 'Aucun set trouvé ou une erreur s\'est produite.']);
-        }
+        $sets = Set::all();
+        $sets = $sets->sortByDesc('releaseDate');
+        $legalities = Legality::all();
+        return view('sets', ['sets' => $sets, 'legalities' => $legalities]);
     }
 
     public function getSet(Set $set, Request $request)
