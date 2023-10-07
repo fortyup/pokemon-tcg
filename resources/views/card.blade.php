@@ -1,6 +1,7 @@
 @extends('master')
 
 @section('meta')
+    <!-- Meta tags for character encoding, description, keywords, author, and viewport -->
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta name="keywords" content="HTML, CSS, JavaScript">
@@ -9,157 +10,158 @@
 @endsection
 
 @section('content')
+    <!-- Title section -->
     <title>Pokemon</title>
 
-    <!-- Afficher les données à partir de la fonction getCard(id) -->
     <div class="">
+        <!-- Main content area -->
         <div class="flex">
             <div>
-                <!-- Faire en sorte que l'image soit à 20% de sa taille originale -->
+                <!-- Display card image -->
                 <img src="{{ $card->largeImage }}" alt="{{ $card->name }}" class="max-w-md rounded-3xl">
             </div>
             <div class="p-3 ml-40">
+                <!-- Card information section -->
                 <section>
                     <div class="flex flex-row justify-between">
                         <div class="flex-column">
+                            <!-- Display card name and supertype -->
                             <h2 class="text-4xl font-bold">{{ $card->name }}</h2>
-                            <p class="text-2xl">{{ $card->supertype }}
-                                - {{ $subtypes->pluck('subtype')->implode(',') }}</p>
+                            <p class="text-2xl">{{ $card->supertype }} - {{ $subtypes->pluck('subtype')->implode(', ') }}</p>
                         </div>
                         <div class="flex flex-row items-center">
-                            <!-- Si la carte n'a pas de points de vie, ne pas afficher sinon afficher les points de vie -->
+                            <!-- Display HP and card types -->
                             @if($card->hp != null)
                                 <p class="text-2xl mr-2">HP {{ $card->hp }}</p>
                             @endif
                             @foreach($types as $type)
                                 <img src="{{ asset('/images/type/'.$type->type.'.png') }}" alt="{{ $type->type }}"
-                                         class="h-6 w-6 mr-1">
-                                @endforeach
+                                     class="h-6 w-6 mr-1">
+                            @endforeach
                         </div>
                     </div>
                 </section>
+                <!-- Horizontal rule -->
                 <hr style="background-color: #d3d3d3;" class="block h-0.5 m-6 mx-0">
-                <!-- Si le pokemon a une capacité en [0], l'afficher avec son type, son nom et son texte pareil pour une capacité en [1] sinon ne rienn afficher -->
                 <section>
-                    <!-- s'il n'y a pas d'abilité, ne rien afficher -->
+                    <!-- Display card abilities -->
                     @if($abilities->count() > 0)
-                        <h2 class="uppercase mb-2">Abilities:</h2>
+                        <h2 class="uppercase mb-2 text-sm font-light">Abilities:</h2>
                         <div class="mb-5">
                             @foreach($abilities as $ability)
-                                <div class="flex">
-                                    <!-- si l'abilité = pokémon power alors ne rien afficher -->
-                                    @if($ability->type != 'Pokémon Power')
-                                        <img src="{{ asset('/images/ability/'.$ability->type.'.png') }}"
-                                             class="w-24 h-auto" alt="{{ $ability->type }}">
-                                        <p class="text-2xl ml-2">{{ $ability->name }}</p>
-                                    @else
-                                        <p class="text-2xl">{{ $ability->name }}</p>
-                                    @endif
+                                <div class="mb-2">
+                                    <div class="flex">
+                                        @if($ability->type != 'Pokémon Power')
+                                            <img src="{{ asset('/images/ability/'.$ability->type.'.png') }}"
+                                                 class="w-24 h-auto" alt="{{ $ability->type }}">
+                                            <p class="text-2xl ml-2">{{ $ability->name }}</p>
+                                        @else
+                                            <p class="text-2xl">{{ $ability->name }}</p>
+                                        @endif
+                                    </div>
+                                    <p>{{ $ability->text }}</p>
                                 </div>
-                                <p>{{ $ability->text }}</p>
                             @endforeach
                         </div>
                     @endif
                 </section>
-                <!-- Section pour afficher les attaques du pokémon. Si le pokémon n'a pas d'attaque, ne rien afficher. Sinon afficher les attaques -->
                 <section>
+                    <!-- Display card attacks -->
                     @if($attacks->count() > 0)
-                    <div>
-                        <h2 class="uppercase mb-2 text-sm">Attacks:</h2>
-                        <div class="mb-5">
-                            @foreach($attacks as $attack)
-                                <div class="flex justify-between items-center">
-                                    <div class="flex items-center">
-                                        @foreach($attack->cost as $cost)
-                                            <img src="{{ asset('/images/type/'.$cost.'.png') }}"
-                                                 alt="{{ $cost }}" class="h-6 w-6 mr-1">
-                                        @endforeach
-                                        <h2 class="text-2xl ml-2">{{ $attack->name }}</h2>
+                        <div>
+                            <h2 class="uppercase mb-2 text-sm font-light">Attacks:</h2>
+                            <div class="mb-5">
+                                @foreach($attacks as $attack)
+                                    <div class="flex justify-between items-center mb-2">
+                                        <div class="flex items-center">
+                                            @foreach($attack->cost as $cost)
+                                                <img src="{{ asset('/images/type/'.$cost.'.png') }}"
+                                                     alt="{{ $cost }}" class="h-6 w-6 mr-1">
+                                            @endforeach
+                                            <h2 class="text-2xl ml-2">{{ $attack->name }}</h2>
+                                        </div>
+                                        <p class="text-xl">{{ $attack->damage }}</p>
                                     </div>
-                                    <p class="text-xl">{{ $attack->damage }}</p>
-                                </div>
-                                <p>{{ $attack->text }}</p>
-                            @endforeach
+                                    <p>{{ $attack->text }}</p>
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
                     @endif
                 </section>
 
-                <!-- Une carte peut avoir plusieurs règles. Afficher toutes les règles -->
                 <section>
-                    <!-- Si la carte n'a pas de règles, ne rien afficher (regarder dans la table rules) -->
+                    <!-- Display card rules -->
                     @if($rules->count() > 0)
-                        <h2 class="uppercase mb-2">Rules:</h2>
+                        <h2 class="uppercase mb-2 text-sm font-light">Rules:</h2>
                         @foreach($rules as $rule)
                             <p class="mb-2">{{ $rule->rule }}</p>
                         @endforeach
                     @endif
                 </section>
-                <!-- Si la carte a une faiblesse, afficher l'image du type -->
                 <section>
+                    <!-- Display card attributes such as Weakness, Resistance, Retreat Cost, Rarity, and Serial Number -->
                     <div class="grid grid-cols-3 gap-4 mt-5">
                         <div>
-                            <!-- Si la carte n'a pas de faiblesse, afficher N/A sinon afficher le type et la valeur de la faiblesse -->
+                            <!-- Display Weakness -->
                             @if($card->valueWeakness != null)
-                                <h2 class="uppercase mb-2 text-sm">Weakness:</h2>
-                                    <div class="flex flex-row items-center font-bold">
-                                        <img src="{{ asset('/images/type/'.$card->typeWeakness.'.png') }}"
-                                             alt="{{ $card->typeWeakness }}" class="w-6 h-auto">
-                                        <p class="ml-2 text-xl">{{ $card->valueWeakness }}</p>
-                                    </div>
+                                <h2 class="uppercase mb-2 text-sm font-light">Weakness:</h2>
+                                <div class="flex flex-row items-center font-bold">
+                                    <img src="{{ asset('/images/type/'.$card->typeWeakness.'.png') }}"
+                                         alt="{{ $card->typeWeakness }}" class="w-6 h-auto">
+                                    <p class="ml-2 text-xl">{{ $card->valueWeakness }}</p>
+                                </div>
                             @else
-                                <h2 class="uppercase mb-2 text-sm">Weakness:</h2>
+                                <h2 class="uppercase mb-2 text-sm font-light">Weakness:</h2>
                                 <p class="font-bold text-xl">N/A</p>
                             @endif
                         </div>
 
                         <div>
-                            <!-- Si la carte n'a pas de résistance, afficher N/A sinon afficher la valeur -->
+                            <!-- Display Resistance -->
                             @if($card->valueResistance != null)
-                                <h2 class="uppercase mb-2 text-sm">Resistance:</h2>
-                                    <div class="flex flex-row items-center font-bold">
-                                        <img src="{{ asset('/images/type/'.$card->typeResistance.'.png') }}"
-                                             alt="{{ $card->typeResistance }}" class="w-6 h-auto">
-                                        <p class="ml-2 text-xl">{{ $card->valueResistance }}</p>
-                                    </div>
+                                <h2 class="uppercase mb-2 text-sm font-light">Resistance:</h2>
+                                <div class="flex flex-row items-center font-bold">
+                                    <img src="{{ asset('/images/type/'.$card->typeResistance.'.png') }}"
+                                         alt="{{ $card->typeResistance }}" class="w-6 h-auto">
+                                    <p class="ml-2 text-xl">{{ $card->valueResistance }}</p>
+                                </div>
                             @else
-                                <h2 class="uppercase mb-2 text-sm">Resistance:</h2>
+                                <h2 class="uppercase mb-2 text-sm font-light">Resistance:</h2>
                                 <p class="font-bold text-xl">N/A</p>
                             @endif
                         </div>
 
                         <div>
-                            <!-- Afficher tous les coûts de retraite du pokémon. Si le pokémon n'a pas de coût de retraite, afficher N/A -->
+                            <!-- Display Retreat Cost -->
                             @if($card->retreatCost != null && count($card->retreatCost) == $card->convertedRetreatCost)
-                                <h2 class="uppercase mb-2 text-sm">Retreat cost:</h2>
+                                <h2 class="uppercase mb-2 text-sm font-light">Retreat cost:</h2>
                                 <div class="flex flex-row">
                                     @foreach($card->retreatCost as $retreatCost)
                                         <img src="{{ asset('/images/type/'.$retreatCost.'.png') }}"
-                                             alt="{{ $retreatCost }}"
-                                             class="h-6 w-6 mr-1">
+                                             alt="{{ $retreatCost }}" class="h-6 w-6 mr-1">
                                     @endforeach
                                 </div>
                             @else
-                                <h2 class="uppercase mb-2 text-sm">Retreat cost:</h2>
+                                <h2 class="uppercase mb-2 text-sm font-light">Retreat cost:</h2>
                                 <p class="font-bold text-xl">N/A</p>
                             @endif
                         </div>
 
                         <div>
-                            <!-- Afficher la rareté de la carte -->
-                            <h2 class="uppercase mb-2 text-sm">Rarity:</h2>
+                            <!-- Display Rarity -->
+                            <h2 class="uppercase mb-2 text-sm font-light">Rarity:</h2>
                             <p class="font-bold text-xl">{{ $card->rarity }}</p>
                         </div>
 
                         <div>
-                            <!-- Afficher le numéro de la carte dans la série ex: 1 / 146 -->
-                            <h2 class="uppercase mb-2 text-sm">Serial number:</h2>
+                            <!-- Display Serial Number and Set -->
+                            <h2 class="uppercase mb-2 text-sm font-light">Serial number:</h2>
                             <p class="font-bold text-xl">{{ $card->number }} / {{ $set->printedTotal }}</p>
                         </div>
 
                         <div>
-                            <!-- Afficher le nom de l'extension de la carte ainsi que le symbole de l'extension -->
-                            <h2 class="uppercase mb-2 text-sm">Set:</h2>
+                            <h2 class="uppercase mb-2 text-sm font-light">Set:</h2>
+                            <!-- Link to the set -->
                             <a href="{{ route('set', ['set' => $set->id_set]) }}"
                                class="flex flex-row items-center font-bold">
                                 <p class="mr-2 text-xl">{{ $set->name }}</p>
@@ -170,8 +172,10 @@
                     </div>
                 </section>
                 <div class="mt-5">
+                    <!-- Display card flavor text -->
                     @if($card->flavorText != null) <p class="text-sm">{{ $card->flavorText }}</p> @endif
                 </div>
             </div>
+        </div>
     </div>
 @endsection
