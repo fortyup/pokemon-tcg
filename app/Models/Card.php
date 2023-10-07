@@ -48,6 +48,11 @@ class Card extends Model
         return $this->hasOne(NationalPokemonNumber::class, 'card_id');
     }
 
+    public function collections()
+    {
+        return $this->hasMany(Collection::class, 'card_id');
+    }
+
     public function getRouteKeyName(): string
     {
         return 'id_card';
