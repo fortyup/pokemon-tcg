@@ -63,6 +63,7 @@
                 </section>
                 <!-- Section pour afficher les attaques du pokémon. Si le pokémon n'a pas d'attaque, ne rien afficher. Sinon afficher les attaques -->
                 <section>
+                    @if($attacks->count() > 0)
                     <div>
                         <h2 class="uppercase mb-2 text-sm">Attacks:</h2>
                         <div class="mb-5">
@@ -80,7 +81,8 @@
                                 <p>{{ $attack->text }}</p>
                             @endforeach
                         </div>
-
+                    </div>
+                    @endif
                 </section>
 
                 <!-- Une carte peut avoir plusieurs règles. Afficher toutes les règles -->

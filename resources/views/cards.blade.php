@@ -20,7 +20,9 @@
         @foreach($cards as $card)
             <div class="card w-[calc(20%-10px)] m-1">
                 <a href="{{ route('card', ['card' => $card->id_card]) }}">
-                    <img src="{{ $card->smallImage }}" alt="{{ $card->name }}" class="rounded-2xl w-60 hover:scale-125 transition" style="box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.45)">
+                    <img src="{{ $card->smallImage }}" alt="{{ $card->name }}"
+                         class="rounded-2xl w-60 hover:scale-125 transition"
+                         style="box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.45)">
                     <h2>{{ $card['name'] }}</h2>
                 </a>
                 <!-- Link to the set -->
