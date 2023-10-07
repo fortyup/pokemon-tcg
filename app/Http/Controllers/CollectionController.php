@@ -25,4 +25,14 @@ class CollectionController extends Controller
             'cards' => $cardCollection
         ]);
     }
+
+    public function removeCard(Card $card)
+    {
+        $user = Auth::user();
+
+        $userCollection = Collection::where('user_id', $user->id)->where('card_id', $card->id)->first();
+        $userCollection->delete();
+
+        return redirect()->route('collection.index');
+    }
 }

@@ -26,6 +26,7 @@ Route::get('/error', [PokemonController::class, 'getError'])->name('error');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/collection', [CollectionController::class, 'showCollection'])->name('collection.index');
+    Route::delete('/collection/{card}', [CollectionController::class, 'removeCard'])->name('collection.remove');
 });
 
 /* Fin des routes de mon application */
