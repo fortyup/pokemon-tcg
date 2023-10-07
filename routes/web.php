@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\PokemonController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +23,10 @@ Route::get('/cards/{card}', [PokemonController::class, 'getCard'])->name('card')
 Route::get('/sets', [PokemonController::class, 'getSets'])->name('sets');
 Route::get('/sets/{set}', [PokemonController::class, 'getSet'])->name('set');
 Route::get('/error', [PokemonController::class, 'getError'])->name('error');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/collection', [CollectionController::class, 'showCollection'])->name('collection.index');
+});
 
 /* Fin des routes de mon application */
 Route::get('/', IndexController::class)->name('index');
