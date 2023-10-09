@@ -18,6 +18,16 @@
              style="width: 60px; height: auto">
         <h1 class="text-lg">Pokémon TCG Collection</h1>
     </a>
+    <!-- Search form -->
+    @if (Route::currentRouteName() != 'index')
+        <form action="{{ route('cards') }}" method="GET" class="flex flex-row items-center">
+            <input type="text" name="search" id="search" class="border-2 border-gray-300 rounded-md p-2 m-2 dark:bg-slate-300 dark:text-black"
+                   placeholder="Search a card by name">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Search
+            </button>
+        </form>
+    @endif
     <!-- Navigation links -->
     <nav class="flex items-center ml-auto mr-5">
         <a href="{{ route('sets') }}" class="font-semibold text-blue-500 hover:text-blue-700 mr-2">Sets</a>
