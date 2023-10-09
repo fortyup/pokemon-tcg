@@ -8,9 +8,7 @@
         <label>
             <!-- Dropdown for ordering -->
             <select name="order" class="dark:bg-slate-200 dark:text-black rounded">
-                <option value="set">Set/Number</option>
                 <option value="name">Name</option>
-                <option value="released">Release Date</option>
                 <option value="rarity">Rarity</option>
             </select>
         </label>
