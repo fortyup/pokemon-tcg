@@ -148,15 +148,15 @@
                         </div>
 
                         <div>
-                            <!-- Display Rarity -->
-                            <h2 class="uppercase mb-2 text-sm font-light">Rarity:</h2>
-                            <p class="font-bold text-xl">{{ $card->rarity }}</p>
+                            <!-- Display Artist -->
+                            <h2 class="uppercase mb-2 text-sm font-light">Artist:</h2>
+                            <p class="font-bold text-xl">{{ $card->artist }}</p>
                         </div>
 
                         <div>
-                            <!-- Display Serial Number and Set -->
-                            <h2 class="uppercase mb-2 text-sm font-light">Serial number:</h2>
-                            <p class="font-bold text-xl">{{ $card->number }} / {{ $set->printedTotal }}</p>
+                            <!-- Display Rarity -->
+                            <h2 class="uppercase mb-2 text-sm font-light">Rarity:</h2>
+                            <p class="font-bold text-xl">{{ $card->rarity }}</p>
                         </div>
 
                         <div>
@@ -169,6 +169,13 @@
                                      class="w-6 h-auto">
                             </a>
                         </div>
+
+                        <div>
+                            <!-- Display Serial Number and Set -->
+                            <h2 class="uppercase mb-2 text-sm font-light">Serial number:</h2>
+                            <p class="font-bold text-xl">{{ $card->number }} / {{ $set->printedTotal }}</p>
+                        </div>
+
                     </div>
                 </section>
                 <div class="mt-5">
