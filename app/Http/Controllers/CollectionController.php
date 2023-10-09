@@ -35,4 +35,22 @@ class CollectionController extends Controller
 
         return redirect()->route('collection.index');
     }
+
+    public function addCard(Card $card)
+    {
+        $user = Auth::user();
+
+        $userCollection = Collection::where('user_id', $user->id)->where('card_id', $card->id)->first();
+
+        if ($userCollection) {
+            return redirect()->route('collection.index');
+        }
+
+        $userCollection = new Collection();
+        $userCollection->user_id = $user->id;
+        $userCollection->card_id = $card->id;
+        $userCollection->save();
+
+        return redirect()->route('collection.index');
+    }
 }

@@ -175,6 +175,17 @@
                     <!-- Display card flavor text -->
                     @if($card->flavorText != null) <p class="text-sm">{{ $card->flavorText }}</p> @endif
                 </div>
+                <!-- Add to collection button -->
+                @if(Auth::check())
+                    <div class="flex mt-5">
+                        <form action="{{ route('collection.add', ['card' => $card->id_card]) }}" method="POST">
+                            @csrf
+                            <button type="submit"
+                                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add to collection
+                            </button>
+                        </form>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
