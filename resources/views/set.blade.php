@@ -4,7 +4,7 @@
     <h1 class="text-4xl font-bold mb-5">{{ $set->name }} ({{ $set->id_set }})</h1>
 
     <!-- Search form for ordering and sorting -->
-    <form action="{{ route('set', ['set' => $set->id_set]) }}" method="get">
+    <form class="mb-5" action="{{ route('set', ['set' => $set->id_set]) }}" method="get">
         <label>
             <!-- Dropdown for ordering -->
             <select name="order" class="dark:bg-slate-200 dark:text-black rounded">

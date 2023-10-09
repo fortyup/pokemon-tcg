@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-    <h1 class="text-4xl">My collection</h1>
+    <h1 class="text-4xl mb-5">My collection</h1>
 
     <div class="card-list flex flex-wrap justify-between">
         @foreach ($cards as $card)

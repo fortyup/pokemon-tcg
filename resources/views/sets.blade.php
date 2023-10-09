@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Page title -->
-    <h1 class="text-4xl">All sets</h1>
+    <h1 class="text-4xl mb-5">All sets</h1>
     <!-- Grid layout for sets -->
     <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-4 h-full">
         @foreach($sets as $set)
