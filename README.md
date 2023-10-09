@@ -1,55 +1,77 @@
-# Projet Pokemon TCG avec Laravel
+<div style="display: flex; align-items: center;">
+    <h1 style="margin-right: 20px">Pokémon TCG Collection</h1>
+    <img src="/public/images/800px-Feuforêve-RFVF.png" alt="Pokemon TCG Collection Logo" width="50" height="50">
+</div>
 
-Ce projet est une application web Laravel qui utilise l'API Pokemon TCG pour afficher des informations sur les cartes Pokemon. Vous pouvez afficher une liste de cartes, ainsi que les détails d'une carte spécifique en fonction de son ID.
+## Description 📄
 
-## Configuration de l'environnement
+Pokémon TCG Collection is a web application that allows users to explore and manage their Pokémon Trading Card Game collections. It provides features for viewing Pokémon cards, adding them to your collection, and more.
 
-Pour exécuter ce projet localement, suivez les étapes ci-dessous :
+## Table of Contents 📋
 
-1. **Prérequis** : Assurez-vous d'avoir PHP, Composer et Laravel installés sur votre système. Si ce n'est pas le cas, vous pouvez les installer en suivant les instructions sur [le site officiel de Laravel](https://laravel.com/docs/10.x/installation).
+- [Description](#description) 📄
+- [Table of Contents](#table-of-contents) 📋
+- [Features](#features) ✨
+- [Getting Started](#getting-started) 🚀
+  - [Prerequisites](#prerequisites) 📦
+  - [Installation](#installation) 🛠️
+- [API Key](#api-key) 🔑
+- [Usage](#usage) 📝
+- [Contributing](#contributing) 🤝
+- [License](#license) 📜
 
-2. **Cloner le projet** : Clonez ce projet depuis GitHub en utilisant la commande suivante :
+## Features ✨
 
-   ```bash
-   git clone https://github.com/fortyup/projet-pokemon-tcg-laravel.git
-   ```
+- Browse and search for Pokémon cards.
+- Add Pokémon cards to your collection.
+- View detailed information about each card.
+- Explore different sets and their cards.
+- User-friendly and responsive design.
 
-3. **Installer les dépendances** : Accédez au répertoire du projet et installez les dépendances en exécutant la commande suivante :
+## Getting Started 🚀
 
-   ```bash
-   composer install
-   ```
+Follow these instructions to get the project up and running on your local machine.
 
-4. **Configurer l'environnement** : Copiez le fichier `.env.example` et renommez-le en `.env`. Ensuite, générez une clé d'application Laravel en utilisant la commande suivante :
+### Prerequisites 📦
 
-   ```bash
-   php artisan key:generate
-   ```
+- [PHP](https://www.php.net/) (>=7.0)
+- [Composer](https://getcomposer.org/)
+- [MySQL](https://www.mysql.com/) or another database system
+- [Node.js](https://nodejs.org/) (for frontend assets, optional)
 
-5. **Configuration de l'API Pokemon TCG** : Dans le fichier `.env`, configurez les informations de l'API Pokemon TCG, telles que la clé d'API et l'URL de l'API.
+### Installation 🛠️
 
-   ```env
-   POKEMON_TCG_API_KEY=VOTRE_CLE_API
-   ```
+1. Clone the repository: ```git clone https://github.com/your-username/pokemon-tcg.git```
+2. Navigate to the project directory: ```cd pokemon-tcg```
+3. Install PHP dependencies using Composer: ```composer install```
+4. Configure your database connection by creating a .env file and updating the database settings: ```cp .env.example .env```
+Update the following lines in .env: ```DB_DATABASE```, ```DB_USERNAME```, ```DB_PASSWORD```, ```DB_HOST```, ```DB_PORT```, ```DB_CONNECTION```
+5. Generate an application key: ```php artisan key:generate```
+6. Run database migrations and seed the database: ```php artisan migrate --seed```
+7. Start the development server: ```php artisan serve```
+The application should now be accessible at http://localhost:8000.
 
-6. **Exécution du serveur de développement** : Démarrez le serveur de développement Laravel en utilisant la commande suivante :
+## API Key 🔑
 
-   ```bash
-   php artisan serve
-   ```
+To fetch Pokémon card data, you'll need an API key from https://pokemontcg.io/. Once you have the API key, add it to your .env file: ```POKEMON_TCG_API_KEY=your-api-key```
 
-7. **Accéder à l'application** : Ouvrez votre navigateur web et accédez à l'URL `http://localhost:8000` pour voir l'application en action.
+## Usage 📝
 
-## Fonctionnalités de l'application
+- Open your web browser and navigate to http://localhost:8000.
+- Sign up for an account or log in if you already have one.
+- Start exploring Pokémon cards, adding them to your collection, and managing your collection.
 
-- `localhost/cards` : Affiche une liste de cartes Pokemon.
-- `localhost/cards/{id}` : Affiche les détails d'une carte spécifique en fonction de son ID.
+## Contributing 🤝
 
-## Auteur
+Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
 
-- Maxime Capel
+1. Fork the project on GitHub.
+2. Create a new branch with a descriptive name: ```git checkout -b feature/my-feature or git checkout -b bugfix/issue-description.```
+3. Make your changes and commit them: ```git commit -m "Description of changes".```
+4. Push your changes to your fork: ```git push origin feature/my-feature.```
+5. Create a pull request on the original repository.
+######Please make sure to follow the project's coding standards
 
-N'hésitez pas à contribuer à ce projet en soumettant des pull requests ou en signalant des problèmes.
+## License 📜
 
-Merci d'utiliser cette application Pokemon TCG avec Laravel ! Amusez-vous bien !
-```
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
