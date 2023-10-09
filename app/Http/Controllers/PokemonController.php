@@ -67,11 +67,20 @@ class PokemonController extends Controller
 
     public function getSet(Set $set, Request $request)
     {
-        $cards = $set->cards;
+        $order = $request->input('order');
+        $sort = $request->input('sort');
 
-        return view('set', [
-            'set' => $set,
-            'cards' => $cards]);
+        $cardsQuery = $set->cards();
+
+        if ($order === 'name') {
+            $cardsQuery->orderBy('name', $sort);
+        } elseif ($order === 'rarity') {
+            $cardsQuery->orderBy('rarity', $sort);
+        } else {
+            $cardsQuery->orderBy('number', 'asc');
+        }
+        $cards = $cardsQuery->get();
+        return view('set', ['set' => $set, 'cards' => $cards]);
     }
 
     public function getError()
