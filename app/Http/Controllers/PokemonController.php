@@ -76,11 +76,13 @@ class PokemonController extends Controller
             $cardsQuery->orderBy('name', $sort);
         } elseif ($order === 'rarity') {
             $cardsQuery->orderBy('rarity', $sort);
+        } elseif ($order === 'number') {
+            $cardsQuery->orderByRaw('CAST(number AS UNSIGNED) ' . $sort);
         } else {
-            $cardsQuery->orderBy('number', 'asc');
+            $cardsQuery->orderByRaw('CAST(number AS UNSIGNED) ' . $sort);
         }
         $cards = $cardsQuery->get();
-        return view('set', ['set' => $set, 'cards' => $cards]);
+        return view('set', ['set' => $set, 'cards' => $cards, 'order' => $order, 'sort' => $sort]);
     }
 
     public function getError()

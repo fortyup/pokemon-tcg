@@ -8,15 +8,16 @@
         <label>
             <!-- Dropdown for ordering -->
             <select name="order" class="dark:bg-slate-200 dark:text-black rounded">
-                <option value="name">Name</option>
-                <option value="rarity">Rarity</option>
+                <option value="name" {{ $order === 'name' ? 'selected' : '' }}>Name</option>
+                <option value="rarity" {{ $order === 'rarity' ? 'selected' : '' }}>Rarity</option>
+                <option value="number" {{ $order === 'number' ? 'selected' : '' }}>Set/Number</option>
             </select>
         </label>
         <label>
             <!-- Dropdown for sorting -->
             <select name="sort" class="dark:bg-slate-200 dark:text-black rounded">
-                <option value="Asc">Asc</option>
-                <option value="Desc">Desc</option>
+                <option value="Asc" {{ $sort === 'Asc' ? 'selected' : '' }}>Asc</option>
+                <option value="Desc" {{ $sort === 'Desc' ? 'selected' : '' }}>Desc</option>
             </select>
         </label>
         <!-- Search button -->
@@ -24,6 +25,7 @@
             <input type="submit" value="Search">
         </button>
     </form>
+
 
     <!-- Card list section -->
     <div class="card-list flex flex-wrap justify-between">
