@@ -1,7 +1,4 @@
-<div style="display: flex; align-items: center;">
-    <h1 style="margin-right: 20px">Pokémon TCG Collection</h1>
-    <img src="/public/images/800px-Feuforêve-RFVF.png" alt="Pokemon TCG Collection Logo" width="50" height="50">
-</div>
+# Pokemon TCG Collection
 
 ## Description 📄
 

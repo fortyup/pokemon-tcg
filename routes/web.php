@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/* Routes de mon application */
+/* Routes of my application */
 Route::get('/cards', [PokemonController::class, 'getAllCards'])->name('cards');
 Route::post('/cards', [PokemonController::class, 'getAllCards'])->name('process.cards');
 Route::get('/cards/{card}', [PokemonController::class, 'getCard'])->name('card');
@@ -30,8 +30,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/collection/{card}', [CollectionController::class, 'removeCard'])->name('collection.remove');
     Route::post('/cards/{card}', [CollectionController::class, 'addCard'])->name('collection.add');
 });
+/* End of routes of my application */
 
-/* Fin des routes de mon application */
 Route::get('/', IndexController::class)->name('index');
 
 Route::get('/welcome', function () {
