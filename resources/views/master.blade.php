@@ -30,13 +30,61 @@
     @endif
     <!-- Navigation links -->
     <nav class="flex items-center ml-auto mr-5">
-        <a href="{{ route('sets') }}" class="font-semibold text-blue-500 hover:text-blue-700 mr-2">Sets</a>
+        <a href="{{ route('sets') }}" class="font-semibold text-blue-500 hover:text-blue-700">Sets</a>
         @if (Route::has('login'))
             <div class="flex items-center mr-5">
                 @auth
                     <!-- Links for authenticated users -->
-                    <a href="{{ url('/dashboard') }}"
-                       class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-gray-400">Dashboard</a>
+                    <!-- Faire un menu déroulant qui affiche le nom de l'utilisateur et qui permet d'accéder à son profil et de se déconnecter -->
+                    <div class="relative group ml-4">
+                        <button id="user-menu-button"
+                                class="font-semibold text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-gray-400 flex-row flex items-center">
+                            <span>{{ Auth::user()->name }}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        <ul id="user-menu-list"
+                            class="absolute hidden mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5"
+                            role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+                            <li role="menuitem">
+                                <a href="{{ route('profile.edit') }}"
+                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your profile</a>
+                            </li>
+                            <li role="menuitem">
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <a href="{{ route('logout') }}"
+                                       class="block px-4 py-2 text-sm text-gray-700 hover-bg-gray-100"
+                                       onclick="event.preventDefault(); this.closest('form').submit();">Log out</a>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <script>
+                        const userMenuButton = document.getElementById('user-menu-button');
+                        const userMenuList = document.getElementById('user-menu-list');
+
+                        userMenuButton.addEventListener('click', () => {
+                            if (userMenuList.classList.contains('hidden')) {
+                                userMenuList.classList.remove('hidden');
+                            } else {
+                                userMenuList.classList.add('hidden');
+                            }
+                        });
+
+                        // Pour fermer le menu lorsque vous cliquez en dehors
+                        document.addEventListener('click', (event) => {
+                            if (!userMenuButton.contains(event.target) && !userMenuList.contains(event.target)) {
+                                userMenuList.classList.add('hidden');
+                            }
+                        });
+                    </script>
+
+
                     <a href="{{ url('/collection') }}"
                        class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-gray-400">My
                         collection</a>
