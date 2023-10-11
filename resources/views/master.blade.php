@@ -54,10 +54,15 @@
                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your profile</a>
                             </li>
                             <li role="menuitem">
+                                <a href="{{ url('/collection') }}"
+                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My
+                                    collection</a>
+                            </li>
+                            <li role="menuitem">
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <a href="{{ route('logout') }}"
-                                       class="block px-4 py-2 text-sm text-gray-700 hover-bg-gray-100"
+                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                        onclick="event.preventDefault(); this.closest('form').submit();">Log out</a>
                                 </form>
                             </li>
@@ -84,10 +89,6 @@
                         });
                     </script>
 
-
-                    <a href="{{ url('/collection') }}"
-                       class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-gray-400">My
-                        collection</a>
                 @else
                     <!-- Links for guests -->
                     <a href="{{ route('login') }}"
