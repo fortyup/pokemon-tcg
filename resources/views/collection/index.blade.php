@@ -5,6 +5,9 @@
     <h1 class="text-4xl mb-5">My collection</h1>
 
     <!-- Card List -->
+    @if (count($cards) === 0)
+        <p class="text-xl">You don't have any cards in your collection.</p>
+    @endif
     <div class="card-list flex flex-wrap justify-between">
         @foreach ($cards as $card)
             <div class="m-1 w-[calc(20%-10px)]">

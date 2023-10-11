@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('collections', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id'); // foreign key
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('card_id'); // foreign key
             $table->foreign('card_id')->references('id')->on('card');
             $table->timestamps();
