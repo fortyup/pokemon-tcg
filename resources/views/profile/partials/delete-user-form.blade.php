@@ -27,6 +27,10 @@
                 {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
             </p>
 
+            <p class="mt-1 font-bold text-gray-600 dark:text-gray-400">
+                {{ __('⚠ This will delete your collection and all of the cards in it.') }}
+            </p>
+
             <div class="mt-6">
                 <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
 
