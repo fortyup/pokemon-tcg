@@ -1,7 +1,4 @@
-@extends('master')
-
-@section('content')
-
+<x-app-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 bg-gray-100 shadow-md dark:bg-slate-700">
@@ -23,4 +20,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-app-layout>
