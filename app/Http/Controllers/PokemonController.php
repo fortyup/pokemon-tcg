@@ -6,7 +6,6 @@ use App\Models\Card;
 use App\Models\Legality;
 use App\Models\Set;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 
 class PokemonController extends Controller
 {
@@ -78,10 +77,10 @@ class PokemonController extends Controller
         } elseif ($order === 'rarity') {
             $cardsQuery->orderBy('rarity', $sort);
         } elseif ($order === 'number') {
-            // If the criteria is 'number,' order numerically; otherwise, order by default.
-            $cardsQuery->orderByRaw('CAST(number AS UNSIGNED) ' . $sort);
+            $cardsQuery->orderByRaw('CAST(number AS SIGNED) IS NULL, CAST(number AS SIGNED), number');
         } else {
-            $cardsQuery->orderByRaw('CAST(number AS UNSIGNED) ' . $sort);
+            $cardsQuery->orderByRaw('CAST(number AS SIGNED) IS NULL, CAST(number AS SIGNED), number');
+
         }
 
         // Retrieve the sorted cards.

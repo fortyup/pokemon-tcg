@@ -6,16 +6,16 @@ Pokémon TCG Collection is a web application that allows users to explore and ma
 
 ## Table of Contents 📋
 
-- [Description](#description) 📄
-- [Table of Contents](#table-of-contents) 📋
-- [Features](#features) ✨
-- [Getting Started](#getting-started) 🚀
-  - [Prerequisites](#prerequisites) 📦
-  - [Installation](#installation) 🛠️
-- [API Key](#api-key) 🔑
-- [Usage](#usage) 📝
-- [Contributing](#contributing) 🤝
-- [License](#license) 📜
+- [Description](#description-) 📄
+- [Table of Contents](#table-of-contents-) 📋
+- [Features](#features-) ✨
+- [Getting Started](#getting-started-) 🚀
+  - [Prerequisites](#prerequisites-) 📦
+  - [Installation](#installation-) 🛠️
+- [API Key](#api-key-) 🔑
+- [Usage](#usage-) 📝
+- [Contributing](#contributing-) 🤝
+- [License](#license-) 📜
 
 ## Features ✨
 
