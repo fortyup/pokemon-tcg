@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\Collection;
 use App\Models\Legality;
 use App\Models\Set;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PokemonController extends Controller
 {
@@ -42,6 +44,8 @@ class PokemonController extends Controller
         $attacks = $card->attacks;
         $rules = $card->rules;
         $abilities = $card->abilities;
+        $user = Auth::user();
+        $isInCollection = Collection::where('user_id', $user->id)->where('card_id', $card->id)->first();
 
         return view('card', [
             'card' => $card,
@@ -50,7 +54,8 @@ class PokemonController extends Controller
             'types' => $types,
             'attacks' => $attacks,
             'rules' => $rules,
-            'abilities' => $abilities
+            'abilities' => $abilities,
+            'isInCollection' => $isInCollection
         ]);
     }
 

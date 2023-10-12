@@ -37,8 +37,10 @@ class CollectionController extends Controller
         // Find the user's collection item for the specified card.
         $userCollection = Collection::where('user_id', $user->id)->where('card_id', $card->id)->first();
 
-        // Delete the collection item.
-        $userCollection->delete();
+        if ($userCollection) {
+            // Delete the collection item.
+            $userCollection->delete();
+        }
 
         // Redirect to the collection index.
         return redirect()->route('collection.index');

@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/collection', [CollectionController::class, 'showCollection'])->name('collection.index');
     Route::delete('/collection/{card}', [CollectionController::class, 'removeCard'])->name('collection.remove');
     Route::post('/cards/{card}', [CollectionController::class, 'addCard'])->name('collection.add');
+    Route::delete('/cards/{card}', [CollectionController::class, 'removeCard'])->name('collection.remove');
 });
 /* End of routes of my application */
 

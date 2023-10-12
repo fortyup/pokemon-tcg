@@ -185,12 +185,24 @@
                 <!-- Add to collection button -->
                 @if(Auth::check())
                     <div class="flex mt-5">
-                        <form action="{{ route('collection.add', ['card' => $card->id_card]) }}" method="POST">
-                            @csrf
-                            <button type="submit"
-                                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add to collection
-                            </button>
-                        </form>
+                        @if($isInCollection)
+                            <form action="{{ route('collection.remove', ['card' => $card->id_card]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                    Delete from collection
+                                </button>
+                            </form>
+                        @else
+                            <form action="{{ route('collection.add', ['card' => $card->id_card]) }}" method="POST">
+                                @csrf
+                                <button type="submit"
+                                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                                    Add to collection
+                                </button>
+                            </form>
+                        @endif
                     </div>
                 @endif
             </div>
