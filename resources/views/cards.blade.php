@@ -15,7 +15,7 @@
 
     <div class="card">
         <!-- Display the title with card count -->
-        <h1 class="text-4xl mb-5">All cards - ({{count($cards)}} cards)</h1>
+        <h1 class="text-4xl mb-5">All cards - ({{ $cards->total() }} cards)</h1>
     </div>
 
     <div class="card-list flex flex-wrap justify-between">
@@ -30,5 +30,10 @@
                 </a>
             </div>
         @endforeach
+    </div>
+
+    <!-- Display pagination links with the search query parameter -->
+    <div class="my-4">
+        {{ $cards->appends(['search' => request('search')])->links() }}
     </div>
 @endsection

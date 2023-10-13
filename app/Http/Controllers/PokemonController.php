@@ -7,6 +7,7 @@ use App\Models\Collection;
 use App\Models\Legality;
 use App\Models\Set;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 
 class PokemonController extends Controller
@@ -29,7 +30,7 @@ class PokemonController extends Controller
         }
 
         // Retrieve the filtered cards and all sets.
-        $cards = $query->get();
+        $cards = $query->paginate(50);
         $sets = Set::all();
 
         return view('cards', ['cards' => $cards, 'sets' => $sets]);
