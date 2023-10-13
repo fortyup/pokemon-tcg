@@ -33,6 +33,10 @@
             @if($card->isInCollection)
                         grayscale
                     @endif">
+                <!-- If the card contains a question mark in the id, replace it with %3F -->
+                @if($card->id_card === '%?')
+                    @php($card->id_card = str_replace('?', '%3F', $card->id_card))
+                @endif
                 <a href="{{ route('card', ['card' => $card->id_card]) }}">
                     <!-- Card image -->
                     <img src="{{ $card->smallImage }}" class="rounded-2xl"

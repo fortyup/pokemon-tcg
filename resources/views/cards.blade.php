@@ -36,7 +36,7 @@
     </div>
 
     <!-- Display pagination links with the search query parameter -->
-    <div class="my-4">
+    <div class="my-12">
         {{ $cards->appends(['search' => request('search')])->links() }}
     </div>
 @endsection
