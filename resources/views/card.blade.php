@@ -182,7 +182,7 @@
                     <!-- Display card flavor text -->
                     @if($card->flavorText != null) <p class="text-sm">{{ $card->flavorText }}</p> @endif
                 </div>
-                <!-- Add to collection button -->
+                <!-- Button to add or remove card from collection -->
                 @if(Auth::check())
                     <div class="flex mt-5">
                         @if($isInCollection)

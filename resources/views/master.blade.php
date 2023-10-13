@@ -16,7 +16,7 @@
     <a href="{{ route('index') }}" class="flex items-center">
         <img src="{{ asset('images/800px-Feuforêve-RFVF.png') }}" alt="Pokemon logo" class="mr-2 ml-2"
              style="width: 60px; height: auto">
-        <h1 class="text-lg">Pokémon TCG Collection</h1>
+        <h1 class="text-lg dark:text-white">Pokémon TCG Collection</h1>
     </a>
     <!-- Search form -->
     @if (Route::currentRouteName() != 'index')
@@ -30,6 +30,7 @@
     @endif
     <!-- Navigation links -->
     <nav class="flex items-center ml-auto mr-5">
+        <a href="{{ route('users') }}" class="font-semibold text-blue-500 hover:text-blue-700 mr-3">Community</a>
         <a href="{{ route('sets') }}" class="font-semibold text-blue-500 hover:text-blue-700">Sets</a>
         @if (Route::has('login'))
             <div class="flex items-center mr-5">

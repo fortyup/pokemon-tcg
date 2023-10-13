@@ -25,11 +25,12 @@ Route::get('/sets', [PokemonController::class, 'getSets'])->name('sets');
 Route::get('/sets/{set}', [PokemonController::class, 'getSet'])->name('set');
 Route::get('/error', [PokemonController::class, 'getError'])->name('error');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/collection', [CollectionController::class, 'showCollection'])->name('collection.index');
     Route::delete('/collection/{card}', [CollectionController::class, 'removeCard'])->name('collection.remove');
     Route::post('/cards/{card}', [CollectionController::class, 'addCard'])->name('collection.add');
     Route::delete('/cards/{card}', [CollectionController::class, 'removeCard'])->name('collection.remove');
+    Route::get('/users', [CollectionController::class, 'showCollectionOtherUsers'])->name('users');
 });
 /* End of routes of my application */
 

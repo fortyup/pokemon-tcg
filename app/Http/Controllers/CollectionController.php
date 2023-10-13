@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Card;
 use App\Models\Collection;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class CollectionController extends Controller
@@ -68,4 +69,34 @@ class CollectionController extends Controller
         // Redirect to the collection index.
         return redirect()->route('collection.index');
     }
+
+    // This method displays the card collection of other users.
+    public function showCollectionOtherUsers()
+    {
+        // Retrieve all users in your application and paginate the results.
+        $users = User::paginate(3);
+
+        $cardCollections = [];
+
+        // Loop through each user to fetch their card collections.
+        foreach ($users as $user) {
+            $userCollection = Collection::where('user_id', $user->id)->get();
+            $cardCollection = [];
+
+            // For each card in the user's collection, retrieve card information.
+            foreach ($userCollection as $card) {
+                $cardInfo = Card::where('id', $card->card_id)->first();
+                array_push($cardCollection, $cardInfo);
+            }
+
+            $cardCollections[$user->name] = $cardCollection;
+        }
+
+        // Return the view with collections of all users.
+        return view('users', [
+            'collections' => $cardCollections,
+            'users' => $users,
+        ]);
+    }
+
 }
