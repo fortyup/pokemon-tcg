@@ -45,7 +45,10 @@ class PokemonController extends Controller
         $rules = $card->rules;
         $abilities = $card->abilities;
         $user = Auth::user();
-        $isInCollection = Collection::where('user_id', $user->id)->where('card_id', $card->id)->first();
+        if ($user)
+            $isInCollection = Collection::where('user_id', $user->id)->where('card_id', $card->id)->first();
+        else
+            $isInCollection = null;
 
         return view('card', [
             'card' => $card,
@@ -82,10 +85,9 @@ class PokemonController extends Controller
         } elseif ($order === 'rarity') {
             $cardsQuery->orderBy('rarity', $sort);
         } elseif ($order === 'number') {
-            $cardsQuery->orderByRaw('CAST(number AS SIGNED) IS NULL, CAST(number AS SIGNED), number');
+            $cardsQuery->orderByRaw("CAST(number AS SIGNED) IS NULL, CAST(number AS SIGNED) $sort, number");
         } else {
-            $cardsQuery->orderByRaw('CAST(number AS SIGNED) IS NULL, CAST(number AS SIGNED), number');
-
+            $cardsQuery->orderByRaw("CAST(number AS SIGNED) IS NULL, CAST(number AS SIGNED) $sort, number");
         }
 
         // Retrieve the sorted cards.
