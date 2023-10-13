@@ -29,14 +29,13 @@
     <!-- Card list section -->
     <div class="card-list flex flex-wrap justify-between">
         @foreach($cards as $card)
-            <div class="card hover:scale-110 transition m-1 w-[calc(20%-10px)]">
+            <div class="card hover:scale-110 transition m-1 w-[calc(20%-10px)]
+            @if($card->isInCollection)
+                        grayscale
+                    @endif">
                 <a href="{{ route('card', ['card' => $card->id_card]) }}">
                     <!-- Card image -->
-                    <img src="{{ $card->smallImage }}" class="rounded-2xl
-                    @if($card->isInCollection)
-                        grayscale
-                    @endif
-                    "
+                    <img src="{{ $card->smallImage }}" class="rounded-2xl"
                          style="box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.45);" alt="{{ $card->name }}">
                 </a>
             </div>

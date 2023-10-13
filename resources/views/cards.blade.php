@@ -21,7 +21,10 @@
     <div class="card-list flex flex-wrap justify-between">
         <!-- Loop through cards and display them -->
         @foreach($cards as $card)
-            <div class="card w-[calc(20%-10px)] m-1">
+            <div class="card w-[calc(20%-10px)] m-1
+                @if($card->isInCollection)
+                    grayscale
+                @endif">
                 <a href="{{ route('card', ['card' => $card->id_card]) }}">
                     <!-- Display card image with link to card details -->
                     <img src="{{ $card->smallImage }}" alt="{{ $card->name }}"

@@ -33,6 +33,12 @@ class PokemonController extends Controller
         $cards = $query->paginate(50);
         $sets = Set::all();
 
+        // Check if each card is in the user's collection and add the 'isInCollection' flag.
+        $user = Auth::user();
+        $cards->each(function ($card) use ($user) {
+            $card->isInCollection = $user ? Collection::where('user_id', $user->id)->where('card_id', $card->id)->first() : null;
+        });
+
         return view('cards', ['cards' => $cards, 'sets' => $sets]);
     }
 
