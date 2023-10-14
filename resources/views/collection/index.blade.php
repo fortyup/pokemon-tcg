@@ -21,6 +21,12 @@
                     <h3 class="text-xl font-semibold dark:text-white">{{ $card->name }}</h3>
                     <p class="text-gray-500 dark:text-gray-400">{{ $card->set->name }}</p>
                 </div>
+                <!-- Form for Removing Card from Collection -->
+                <form class="pl-4 pb-4" action="{{ route('collection.remove', ['card' => $card->id_card]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Remove</button>
+                </form>
             </div>
         @endforeach
     </div>

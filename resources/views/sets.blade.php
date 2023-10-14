@@ -7,7 +7,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-4 h-full">
         @foreach($sets as $set)
             <!-- Set card -->
-            <div class="bg-white rounded-lg shadow-md p-4 dark:bg-slate-700">
+            <div class="bg-gray-100 rounded-lg shadow-md p-4 dark:bg-slate-700">
                 <a href="{{ route('set', ['set' => $set->id_set]) }}">
                     <!-- Set image -->
                     <div class="h-36 flex w-full justify-center items-center">
