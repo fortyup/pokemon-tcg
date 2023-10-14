@@ -75,8 +75,9 @@ class PokemonController extends Controller
         $sets = Set::all();
         $sets = $sets->sortByDesc('releaseDate');
         $legalities = Legality::all();
+        $groupedSets = $sets->groupBy('series');
 
-        return view('sets', ['sets' => $sets, 'legalities' => $legalities]);
+        return view('sets', ['legalities' => $legalities, 'groupedSets' => $groupedSets]);
     }
 
     // This method retrieves a specific set's details and associated cards.
