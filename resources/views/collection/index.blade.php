@@ -4,6 +4,29 @@
     <!-- Page Title -->
     <h1 class="text-4xl mb-5">My collection</h1>
 
+    <!-- Search form for ordering and sorting -->
+    <form class="mb-5" action="{{ route('collection.index') }}" method="get">
+        <label>
+            <!-- Dropdown for ordering -->
+            <select name="order" class="dark:bg-slate-200 dark:text-black rounded">
+                <option value="name" {{ $order === 'name' ? 'selected' : '' }}>Name</option>
+                <option value="rarity" {{ $order === 'rarity' ? 'selected' : '' }}>Rarity</option>
+                <option value="set" {{ $order === 'set' ? 'selected' : '' }}>Set</option>
+            </select>
+        </label>
+        <label>
+            <!-- Dropdown for sorting -->
+            <select name="sort" class="dark:bg-slate-200 dark:text-black rounded">
+                <option value="Asc" {{ $sort === 'Asc' ? 'selected' : '' }}>Asc</option>
+                <option value="Desc" {{ $sort === 'Desc' ? 'selected' : '' }}>Desc</option>
+            </select>
+        </label>
+        <!-- Search button -->
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <input type="submit" value="Search">
+        </button>
+    </form>
+
     <!-- Card List -->
     @if (count($cards) === 0)
         <p class="text-xl">You don't have any cards in your collection.</p>

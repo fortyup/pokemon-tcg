@@ -5,98 +5,115 @@ namespace App\Http\Controllers;
 use App\Models\Card;
 use App\Models\Collection;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CollectionController extends Controller
 {
-    // This method displays the user's card collection.
-    public function showCollection()
+    public function showCollection(Request $request)
     {
+        // Get the currently authenticated user
         $user = Auth::user();
 
-        // Retrieve the user's collection of cards.
+        // Get sorting parameters from the request
+        $order = $request->input('order', 'set');
+        $sort = $request->input('sort', 'Desc');
+
+        // Retrieve the user's card collection
         $userCollection = Collection::where('user_id', $user->id)->get();
         $cardCollection = [];
 
-        // For each card in the user's collection, retrieve card information.
+        // For each card in the user's collection, fetch card information
         foreach ($userCollection as $card) {
             $cardInfo = Card::where('id', $card->card_id)->first();
             array_push($cardCollection, $cardInfo);
         }
 
-        // Return the view with the user's card collection.
+        // Sort the collection using the custom sorting function
+        usort($cardCollection, function ($a, $b) use ($order, $sort) {
+            if ($sort == 'Asc') {
+                if ($a->set->name == $b->set->name) {
+                    return $a->number > $b->number;
+                }
+                return $a->$order > $b->$order;
+            } else {
+                if ($a->set->name == $b->set->name) {
+                    return $a->number < $b->number;
+                }
+                return $a->$order < $b->$order;
+            }
+        });
+
+        // Return the view with the sorted card collection
         return view('collection.index', [
-            'cards' => $cardCollection
+            'cards' => $cardCollection,
+            'order' => $order,
+            'sort' => $sort
         ]);
     }
 
-    // This method removes a card from the user's collection.
     public function removeCard(Card $card)
     {
         $user = Auth::user();
 
-        // Find the user's collection item for the specified card.
+        // Get the user's card from the collection
         $userCollection = Collection::where('user_id', $user->id)->where('card_id', $card->id)->first();
 
         if ($userCollection) {
-            // Delete the collection item.
+            // Delete the card from the collection
             $userCollection->delete();
         }
 
-        // Redirect to the collection index.
         return redirect()->route('collection.index');
     }
 
-    // This method adds a card to the user's collection.
     public function addCard(Card $card)
     {
         $user = Auth::user();
 
-        // Check if the user already has the card in their collection.
+        // Check if the card is already in the user's collection
         $userCollection = Collection::where('user_id', $user->id)->where('card_id', $card->id)->first();
 
-        // If the user already has the card, redirect back to the collection.
         if ($userCollection) {
+            // Redirect if the card is already in the collection
             return redirect()->route('collection.index');
         }
 
-        // Create a new collection item and save it.
+        // Add the card to the user's collection
         $userCollection = new Collection();
         $userCollection->user_id = $user->id;
         $userCollection->card_id = $card->id;
         $userCollection->save();
 
-        // Redirect to the collection index.
         return redirect()->route('collection.index');
     }
 
-    // This method displays the card collection of other users.
     public function showCollectionOtherUsers()
     {
-        // Retrieve all users in your application and paginate the results.
+        // Paginate the list of users to avoid a large number of results
         $users = User::paginate(3);
 
         $cardCollections = [];
 
-        // Loop through each user to fetch their card collections.
+        // For each user, fetch their card collection
         foreach ($users as $user) {
             $userCollection = Collection::where('user_id', $user->id)->get();
             $cardCollection = [];
 
-            // For each card in the user's collection, retrieve card information.
+            // For each card in the user's collection, fetch card information
             foreach ($userCollection as $card) {
                 $cardInfo = Card::where('id', $card->card_id)->first();
                 array_push($cardCollection, $cardInfo);
             }
 
+            // Associate the card collection with the user
             $cardCollections[$user->name] = $cardCollection;
         }
 
-        // Return the view with collections of all users.
+        // Return the view with collections of cards for all users
         return view('users', [
             'collections' => $cardCollections,
             'users' => $users,
         ]);
     }
-
 }

@@ -23,7 +23,6 @@ Route::post('/cards', [PokemonController::class, 'getAllCards'])->name('process.
 Route::get('/cards/{card}', [PokemonController::class, 'getCard'])->name('card');
 Route::get('/sets', [PokemonController::class, 'getSets'])->name('sets');
 Route::get('/sets/{set}', [PokemonController::class, 'getSet'])->name('set');
-Route::get('/error', [PokemonController::class, 'getError'])->name('error');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/collection', [CollectionController::class, 'showCollection'])->name('collection.index');
