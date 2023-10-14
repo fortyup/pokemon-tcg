@@ -10,18 +10,18 @@
                 @if(count($cardCollection) > 0)
                     <ul class="mt-4">
                         @foreach($cardCollection as $card)
-                            <li class="flex items-center justify-between border-t border-gray-300 dark:border-gray-700 pt-2">
+                            <div class="flex items-center justify-between border-t border-gray-300 dark:border-gray-700 pt-2">
                                 <a href="{{ route('card', ['card' => $card->id_card]) }}">
-                                    <span class="dark:text-white hover:text-blue-500">{{ $card->name }} ({{ $card->id_card }})</span>
+                                    <p class="dark:text-white hover:text-blue-500">{{ $card->name }} ({{ $card->id_card }})</p>
                                 </a>
-                                <span class="text-gray-600 dark:text-gray-400">{{ $card->artist }}</span>
+                                <p class="text-gray-600 dark:text-gray-400">{{ $card->artist }}</p>
                                 <a href="{{ route('set', ['set' => $card->set->id_set]) }}"
                                    class="flex flex-row items-center hover:text-blue-500">
-                                    <span class="mr-2">{{ $card->set->name }}</span>
+                                    <p class="mr-2">{{ $card->set->name }}</p>
                                     <img src="{{ $card->set->symbol }}" alt="{{ $card->set->name }}"
                                          class="w-auto h-4">
                                 </a>
-                            </li>
+                            </div>
                         @endforeach
                     </ul>
                 @else
