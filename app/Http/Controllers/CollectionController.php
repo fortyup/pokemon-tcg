@@ -106,14 +106,40 @@ class CollectionController extends Controller
                 array_push($cardCollection, $cardInfo);
             }
 
-            // Associate the card collection with the user
-            $cardCollections[$user->name] = $cardCollection;
+            // Associate the card collection with the user (name and id)
+            $cardCollections[$user->id] = [
+                'name' => $user->name,
+                'cards' => $cardCollection,
+            ];
         }
 
         // Return the view with collections of cards for all users
         return view('users.index', [
             'collections' => $cardCollections,
             'users' => $users,
+        ]);
+    }
+
+    // Method to show the collection of a specific user based on their id
+    public function showCollectionOtherUsersId($id)
+    {
+        // Get the user with the specified id
+        $user = User::where('id', $id)->first();
+
+        // Get the user's card collection
+        $userCollection = Collection::where('user_id', $user->id)->get();
+        $cardCollection = [];
+
+        // For each card in the user's collection, fetch card information
+        foreach ($userCollection as $card) {
+            $cardInfo = Card::where('id', $card->card_id)->first();
+            array_push($cardCollection, $cardInfo);
+        }
+
+        // Return the view with the user's card collection
+        return view('users.show', [
+            'cards' => $cardCollection,
+            'user' => $user,
         ]);
     }
 }
