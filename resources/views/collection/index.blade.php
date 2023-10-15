@@ -2,7 +2,23 @@
 
 @section('content')
     <!-- Page Title -->
-    <h1 class="text-4xl mb-5">My collection</h1>
+    <h1 class="text-4xl font-bold dark:text-white mb-5">{{ $collectionName }}</h1>
+
+    <!-- Form for Modifying Collection Name -->
+    <form class="mb-5" action="{{ route('collection.update') }}" method="post">
+        @csrf
+        @method('PATCH')
+
+        <div class="mb-4">
+            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">New Collection Name:</label>
+            <input type="text" name="name" id="name" value="{{ $collectionName }}"
+                   class="mt-1 p-2 block w-full border rounded-md dark:border-gray-600 dark:bg-slate-200 focus:ring focus:ring-blue-200">
+        </div>
+
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Update Name
+        </button>
+    </form>
 
     <!-- Search form for ordering and sorting -->
     <form class="mb-5" action="{{ route('collection.index') }}" method="get">

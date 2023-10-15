@@ -27,6 +27,7 @@ Route::get('/sets/{set}', [SetController::class, 'getSet'])->name('set');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/collection', [CollectionController::class, 'showCollection'])->name('collection.index');
+    Route::patch('/collection', [CollectionController::class, 'modifyNameCollection'])->name('collection.update');
     Route::delete('/collection/{card}', [CollectionController::class, 'removeCard'])->name('collection.remove');
     Route::post('/cards/{card}', [CollectionController::class, 'addCard'])->name('collection.add');
     Route::delete('/cards/{card}', [CollectionController::class, 'removeCard'])->name('collection.remove');

@@ -43,13 +43,33 @@ class CollectionController extends Controller
                 return $a->$order < $b->$order;
             }
         });
+        // Get the user's collection name
+        $userCollection = Collection::where('user_id', $user->id)->first();
+        $collectionName = $userCollection->name;
 
         // Return the view with the sorted card collection
         return view('collection.index', [
             'cards' => $cardCollection,
+            'collectionName' => $collectionName,
             'order' => $order,
             'sort' => $sort
         ]);
+    }
+
+    public function modifyNameCollection(Request $request)
+    {
+        // Get the currently authenticated user
+        $user = Auth::user();
+
+        // Get the new name of the collection
+        $newName = $request->input('name');
+
+        // Update the name of the collection
+        $userCollection = Collection::where('user_id', $user->id)->first();
+        $userCollection->name = $newName;
+        $userCollection->save();
+
+        return redirect()->route('collection.index');
     }
 
     public function removeCard(Card $card)

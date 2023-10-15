@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('card_id'); // foreign key
             $table->foreign('card_id')->references('id')->on('card');
+            $table->string('name')->default('My collection');
             $table->timestamps();
         });
     }
