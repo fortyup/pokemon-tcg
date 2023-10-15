@@ -1,24 +1,34 @@
 @extends('master')
 
 @section('content')
-    <!-- Page Title -->
-    <h1 class="text-4xl font-bold dark:text-white mb-5">{{ $collectionName }}</h1>
+    <!-- Page Title with Edit Icon -->
+    <h1 class="text-4xl font-bold dark:text-white mb-5 flex flex-row items-center">
+        {{ $collectionName }}
+        <i id="editIcon" class="cursor-pointer ml-2">
+            <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none">
+                    <path d="M21.2799 6.40005L11.7399 15.94C10.7899 16.89 7.96987 17.33 7.33987 16.7C6.70987 16.07 7.13987 13.25 8.08987 12.3L17.6399 2.75002C17.8754 2.49308 18.1605 2.28654 18.4781 2.14284C18.7956 1.99914 19.139 1.92124 19.4875 1.9139C19.8359 1.90657 20.1823 1.96991 20.5056 2.10012C20.8289 2.23033 21.1225 2.42473 21.3686 2.67153C21.6147 2.91833 21.8083 3.21243 21.9376 3.53609C22.0669 3.85976 22.1294 4.20626 22.1211 4.55471C22.1128 4.90316 22.0339 5.24635 21.8894 5.5635C21.7448 5.88065 21.5375 6.16524 21.2799 6.40005V6.40005Z" stroke="rgb(59 130 246)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M11 4H6C4.93913 4 3.92178 4.42142 3.17163 5.17157C2.42149 5.92172 2 6.93913 2 8V18C2 19.0609 2.42149 20.0783 3.17163 20.8284C3.92178 21.5786 4.93913 22 6 22H17C19.21 22 20 20.2 20 18V13" stroke="rgb(59 130 246)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+        </i>
+    </h1>
 
-    <!-- Form for Modifying Collection Name -->
-    <form class="mb-5" action="{{ route('collection.update') }}" method="post">
-        @csrf
-        @method('PATCH')
+    <!-- Form for Modifying Collection Name (initially hidden) -->
+    <div id="editForm" class="hidden mb-5">
+        <form class="mb-5" action="{{ route('collection.update') }}" method="post">
+            @csrf
+            @method('PATCH')
 
-        <div class="mb-4">
-            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">New Collection Name:</label>
-            <input type="text" name="name" id="name" value="{{ $collectionName }}"
-                   class="mt-1 p-2 block w-full border rounded-md dark:border-gray-600 dark:bg-slate-200 focus:ring focus:ring-blue-200">
-        </div>
+            <div class="mb-4">
+                <label for="name" class="block text-md font-medium text-gray-700 dark:text-gray-300">New Collection Name:</label>
+                <input type="text" name="name" id="name" value="{{ $collectionName }}"
+                       class="w-72 border-2 border-gray-300 rounded-md p-2 mt-2 dark:bg-slate-300 dark:text-black">
+            </div>
 
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Update Name
-        </button>
-    </form>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Update Name
+            </button>
+        </form>
+    </div>
 
     <!-- Search form for ordering and sorting -->
     <form class="mb-5" action="{{ route('collection.index') }}" method="get">
@@ -70,4 +80,14 @@
         @endforeach
     </div>
 
+    <script>
+        // JavaScript for showing the edit form
+        const editIcon = document.getElementById('editIcon');
+        const editForm = document.getElementById('editForm');
+
+        editIcon.addEventListener('click', function() {
+            editForm.style.display = 'block';
+            editIcon.style.display = 'none';
+        });
+    </script>
 @endsection
