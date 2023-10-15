@@ -17,7 +17,7 @@
             <h1 class="text-4xl">Pokémon TCG Collection</h1>
             <!-- Description -->
             <h2 class="text-xl font-light">
-                This website is a collection of all the cards from the Pokémon TCG.
+                Here you can find all the cards from the Pokémon TCG.
             </h2>
             <!-- Search form -->
             <form action="{{ route('cards') }}" method="GET" class="flex flex-row items-center">

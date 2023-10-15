@@ -30,7 +30,7 @@
     @endif
     <!-- Navigation links -->
     <nav class="flex items-center ml-auto mr-5">
-        <a href="{{ route('users') }}" class="font-semibold text-blue-500 hover:text-blue-700 mr-3">Community</a>
+        <a href="{{ route('users.index') }}" class="font-semibold text-blue-500 hover:text-blue-700 mr-3">Community</a>
         <a href="{{ route('sets') }}" class="font-semibold text-blue-500 hover:text-blue-700">Sets</a>
         @if (Route::has('login'))
             <div class="flex items-center mr-5">

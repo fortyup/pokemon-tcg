@@ -111,7 +111,7 @@ class CollectionController extends Controller
         }
 
         // Return the view with collections of cards for all users
-        return view('users', [
+        return view('users.index', [
             'collections' => $cardCollections,
             'users' => $users,
         ]);

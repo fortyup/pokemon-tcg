@@ -30,7 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/collection/{card}', [CollectionController::class, 'removeCard'])->name('collection.remove');
     Route::post('/cards/{card}', [CollectionController::class, 'addCard'])->name('collection.add');
     Route::delete('/cards/{card}', [CollectionController::class, 'removeCard'])->name('collection.remove');
-    Route::get('/users', [CollectionController::class, 'showCollectionOtherUsers'])->name('users');
+    Route::get('/users', [CollectionController::class, 'showCollectionOtherUsers'])->name('users.index');
 });
 /* End of routes of my application */
 
