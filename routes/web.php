@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\PokemonController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SetController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,11 +19,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 /* Routes of my application */
-Route::get('/cards', [PokemonController::class, 'getAllCards'])->name('cards');
-Route::post('/cards', [PokemonController::class, 'getAllCards'])->name('process.cards');
-Route::get('/cards/{card}', [PokemonController::class, 'getCard'])->name('card');
-Route::get('/sets', [PokemonController::class, 'getSets'])->name('sets');
-Route::get('/sets/{set}', [PokemonController::class, 'getSet'])->name('set');
+Route::get('/cards', [CardController::class, 'getAllCards'])->name('cards');
+Route::post('/cards', [CardController::class, 'getAllCards'])->name('process.cards');
+Route::get('/cards/{card}', [CardController::class, 'getCard'])->name('card');
+Route::get('/sets', [SetController::class, 'getSets'])->name('sets');
+Route::get('/sets/{set}', [SetController::class, 'getSet'])->name('set');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/collection', [CollectionController::class, 'showCollection'])->name('collection.index');
