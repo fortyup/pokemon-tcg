@@ -90,8 +90,11 @@ class CollectionController extends Controller
 
     public function showCollectionOtherUsers()
     {
+        // Get the currently authenticated user
+        $currentUser = Auth::user();
+
         // Paginate the list of users to avoid a large number of results
-        $users = User::paginate(3);
+        $users = User::where('id', '!=', $currentUser->id)->paginate(3);
 
         $cardCollections = [];
 
@@ -113,7 +116,7 @@ class CollectionController extends Controller
             ];
         }
 
-        // Return the view with collections of cards for all users
+        // Return the view with collections of cards for other users
         return view('users.index', [
             'collections' => $cardCollections,
             'users' => $users,
