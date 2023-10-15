@@ -6,7 +6,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pokemon TCG</title>
+    <title>Pokemon TCG Collection</title>
     <!-- Include CSS using Vite -->
     @vite('resources/css/app.css')
 </head>
