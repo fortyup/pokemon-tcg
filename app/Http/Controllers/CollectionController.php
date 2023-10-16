@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AllSetCardsCollected;
 use App\Models\Card;
 use App\Models\Collection;
+use App\Models\Set;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,6 +48,15 @@ class CollectionController extends Controller
         // Get the user's collection name
         $userCollection = Collection::where('user_id', $user->id)->first();
         $collectionName = $userCollection->name;
+
+        // Check if the user has collected all the cards of a set
+        $sets = Set::all();
+        foreach ($sets as $set) {
+            if ($user->hasAllSetCards($set)) {
+                // Dispatch an event to send an email to the user
+                event(new AllSetCardsCollected($user, $set));
+            }
+        }
 
         // Return the view with the sorted card collection
         return view('collection.index', [

@@ -48,4 +48,21 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Collection::class, 'user_id');
     }
+
+    public function hasCard(Card $card)
+    {
+        $collection = Collection::where('user_id', $this->id)->where('card_id', $card->id)->first();
+        return $collection != null;
+    }
+
+    public function hasAllSetCards(Set $set)
+    {
+        $cards = $set->cards;
+        foreach ($cards as $card) {
+            if (!$this->hasCard($card)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
