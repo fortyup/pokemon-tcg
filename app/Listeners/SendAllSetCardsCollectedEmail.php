@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\AllSetCardsCollected;
 use App\Mail\AllSetCardsCollectedMail;
+use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
@@ -21,7 +22,10 @@ class SendAllSetCardsCollectedEmail
         $user = $event->user;
         $set = $event->set;
 
-        if ($user->hasAllSetCards($set)) {
+        // Chargez les collections associées avec l'utilisateur en utilisant l'eager loading
+        $userWithCollections = User::with('collections')->find($user->id);
+
+        if ($userWithCollections->hasAllSetCards($set)) {
             // Envoyez un e-mail à l'utilisateur
             Mail::to($user->email)->send(new AllSetCardsCollectedMail($set));
         }
