@@ -57,8 +57,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function hasAllSetCards(Set $set)
     {
         $setCardIds = $set->cards->pluck('id')->toArray();
-
-        // Utilisez la méthode diff pour comparer les deux tableaux
         $userCardIds = $this->collections->pluck('card_id')->toArray();
 
         return empty(array_diff($setCardIds, $userCardIds));

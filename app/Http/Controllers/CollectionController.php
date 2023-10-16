@@ -51,15 +51,6 @@ class CollectionController extends Controller
         $userCollection = Collection::where('user_id', $user->id)->first();
         $collectionName = $userCollection->name ?? 'My Empty Collection';
 
-        // Check if the user has collected all the cards of a set
-        $sets = Set::all();
-        foreach ($sets as $set) {
-            if ($user->hasAllSetCards($set)) {
-                // Dispatch an event to send an email to the user
-                event(new AllSetCardsCollected($user, $set));
-            }
-        }
-
         // Return the view with the sorted card collection
         return view('collection.index', [
             'cards' => $cardCollection,
@@ -122,7 +113,18 @@ class CollectionController extends Controller
         $userCollection = new Collection();
         $userCollection->user_id = $user->id;
         $userCollection->card_id = $card->id;
+
+        // Save the new card in the user's collection
         $userCollection->save();
+
+        // Check if the user has collected all cards from the set
+        $set = $card->set;
+        $allSetCardsCollected = $user->hasAllSetCards($set);
+
+        // If the user has collected all cards from the set, fire the event
+        if ($allSetCardsCollected) {
+            event(new AllSetCardsCollected($user, $set));
+        }
 
         return redirect()->route('collection.index');
     }
