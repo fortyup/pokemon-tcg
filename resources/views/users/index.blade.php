@@ -31,6 +31,9 @@
                    class="mt-4 text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500">View collection</a>
             </div>
         @endforeach
+        @if(count($collections) == 0)
+            <p class="mt-4 text-gray-500 dark:text-gray-400">There are no users with cards in their collection.</p>
+        @endif
 
         <div class="mt-6">
             {{ $users->links() }}
