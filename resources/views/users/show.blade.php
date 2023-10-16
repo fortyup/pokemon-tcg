@@ -6,7 +6,7 @@
 
     <!-- Card List -->
     @if (count($cards) === 0)
-        <p class="text-xl">You don't have any cards in your collection.</p>
+        <p class="text-xl">This user doesn't have any cards in their collection.</p>
     @endif
 
     <div class="mt-4 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
