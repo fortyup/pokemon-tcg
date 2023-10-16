@@ -85,13 +85,14 @@ class CollectionController extends Controller
 
     public function removeCard(Card $card)
     {
-        $user = Auth::user();
+        $this->authorize('delete', [$card, $user = Auth::user()]);
 
-        // Get the user's card from the collection
+        // Now that we have checked that the user has the card in their collection,
+
+        // Remove the card from the user's collection
         $userCollection = Collection::where('user_id', $user->id)->where('card_id', $card->id)->first();
 
         if ($userCollection) {
-            // Delete the card from the collection
             $userCollection->delete();
         }
 
@@ -100,6 +101,8 @@ class CollectionController extends Controller
 
     public function addCard(Card $card)
     {
+        $this->authorize('add', [$card]);
+
         $user = Auth::user();
 
         // Check if the card is already in the user's collection
@@ -118,6 +121,7 @@ class CollectionController extends Controller
 
         return redirect()->route('collection.index');
     }
+
 
     public function showCollectionOtherUsers()
     {
