@@ -47,7 +47,7 @@ class CollectionController extends Controller
         });
         // Get the user's collection name
         $userCollection = Collection::where('user_id', $user->id)->first();
-        $collectionName = $userCollection->name;
+        $collectionName = $userCollection->name ?? 'My Default Collection Name';
 
         // Check if the user has collected all the cards of a set
         $sets = Set::all();
