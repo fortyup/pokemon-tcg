@@ -1,7 +1,10 @@
 @extends('master')
 
 @section('content')
-    <!-- Page Title with Edit Icon -->
+    @php
+        $hasErrors = session('errors') ? session('errors')->any() : false;
+    @endphp
+        <!-- Page Title with Edit Icon -->
     <h1 class="text-4xl font-bold dark:text-white mb-5 flex flex-row items-center">
         {{$collectionName}}
         <i id="editIcon" class="cursor-pointer ml-2">
@@ -13,15 +16,18 @@
     </h1>
 
     <!-- Form for Modifying Collection Name (initially hidden) -->
-    <div id="editForm" class="hidden mb-5">
+    <div id="editForm" class="mb-5 {{ $hasErrors ? '' : 'hidden' }} w-72">
+        <!-- Form for Modifying Collection Name -->
         <form class="mb-5" action="{{ route('collection.update') }}" method="post">
             @csrf
             @method('PATCH')
 
             <div class="mb-4">
-                <label for="name" class="block text-md font-medium text-gray-700 dark:text-gray-300">New Collection Name:</label>
-                <input type="text" name="name" id="name" value="{{ $collectionName }}"
-                       class="w-72 border-2 border-gray-300 rounded-md p-2 mt-2 dark:bg-slate-300 dark:text-black">
+                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">New Collection Name:</label>
+                <input type="text" name="name" id="name" value="{{ old('name', $collectionName) }}" class="mt-1 p-2 block w-full border rounded-md dark:border-gray-600 dark:bg-slate-200 focus:ring focus:ring-blue-200">
+                @error('name')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -29,6 +35,7 @@
             </button>
         </form>
     </div>
+
 
     <!-- Search form for ordering and sorting -->
     <form class="mb-5" action="{{ route('collection.index') }}" method="get">

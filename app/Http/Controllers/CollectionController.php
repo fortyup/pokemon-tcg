@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Events\AllSetCardsCollected;
+use App\Http\Requests\ModifyPatchRequest;
 use App\Models\Card;
 use App\Models\Collection;
 use App\Models\Set;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -67,15 +69,18 @@ class CollectionController extends Controller
         ]);
     }
 
-    public function modifyNameCollection(Request $request)
+    public function modifyNameCollection(ModifyPatchRequest $request): RedirectResponse
     {
         // Get the currently authenticated user
         $user = Auth::user();
 
-        // Get the new name of the collection
-        $newName = $request->input('name');
+        // Get the validated data from the request
+        $validatedData = $request->validated();
 
-        // Update the name of the collection
+        // Get the new name from the validated data
+        $newName = $validatedData['name'];
+
+        // Update the user's collection name
         $userCollection = Collection::where('user_id', $user->id)->first();
         $userCollection->name = $newName;
         $userCollection->save();
