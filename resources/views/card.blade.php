@@ -27,7 +27,8 @@
                         <div class="flex-column">
                             <!-- Display card name and supertype -->
                             <h2 class="text-4xl font-bold">{{ $card->name }}</h2>
-                            <p class="text-2xl">{{ $card->supertype }} - {{ $subtypes->pluck('subtype')->implode(', ') }}</p>
+                            <p class="text-2xl">{{ $card->supertype }}
+                                - {{ $subtypes->pluck('subtype')->implode(', ') }}</p>
                         </div>
                         <div class="flex flex-row items-center">
                             <!-- Display HP and card types -->
@@ -180,7 +181,9 @@
                 </section>
                 <div class="mt-5">
                     <!-- Display card flavor text -->
-                    @if($card->flavorText != null) <p class="text-sm">{{ $card->flavorText }}</p> @endif
+                    @if($card->flavorText != null)
+                        <p class="text-sm">{{ $card->flavorText }}</p>
+                    @endif
                 </div>
                 <!-- Button to add or remove card from collection -->
                 @if(Auth::check())

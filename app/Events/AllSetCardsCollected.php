@@ -2,8 +2,8 @@
 
 namespace App\Events;
 
-use App\Models\User;
 use App\Models\Set;
+use App\Models\User;
 
 class AllSetCardsCollected
 {

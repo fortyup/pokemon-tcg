@@ -16,7 +16,8 @@
                     <a href="{{ route('set', ['set' => $set->id_set]) }}">
                         <!-- Set image -->
                         <div class="h-36 flex w-full justify-center items-center">
-                            <img src="{{ $set->logo }}" alt="{{ $set->name }}" class="max-w-full max-h-full justify-center flex">
+                            <img src="{{ $set->logo }}" alt="{{ $set->name }}"
+                                 class="max-w-full max-h-full justify-center flex">
                         </div>
                         <!-- Set details -->
                         <div class="flex flex-row items-center p-4">

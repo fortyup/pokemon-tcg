@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\Card;
 use App\Models\Collection;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class CardPolicy
 {

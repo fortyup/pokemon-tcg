@@ -2,14 +2,14 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Ability;
 use App\Models\Attack;
 use App\Models\Card;
 use App\Models\Legality;
 use App\Models\Rule;
 use App\Models\Set;
-use App\Models\Ability;
-use App\Models\Type;
 use App\Models\Subtype;
+use App\Models\Type;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 

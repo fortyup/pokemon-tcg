@@ -23,26 +23,32 @@ class Card extends Model
     {
         return $this->belongsTo(Set::class, 'set_id');
     }
+
     public function rules()
     {
         return $this->hasMany(Rule::class, 'card_id');
     }
+
     public function attacks()
     {
         return $this->hasMany(Attack::class, 'card_id');
     }
+
     public function abilities()
     {
         return $this->hasMany(Ability::class, 'card_id');
     }
+
     public function types()
     {
         return $this->hasMany(Type::class, 'card_id');
     }
+
     public function subtypes()
     {
         return $this->hasMany(Subtype::class, 'card_id');
     }
+
     public function nationalPokemonNumber()
     {
         return $this->hasOne(NationalPokemonNumber::class, 'card_id');

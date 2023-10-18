@@ -10,9 +10,11 @@
                 @if(count($userData['cards']) > 0)
                     <ul class="mt-4">
                         @foreach($userData['cards'] as $card)
-                            <div class="flex items-center justify-between border-t border-gray-300 dark:border-gray-700 pt-2">
+                            <div
+                                class="flex items-center justify-between border-t border-gray-300 dark:border-gray-700 pt-2">
                                 <a href="{{ route('card', ['card' => $card->id_card]) }}">
-                                    <p class="dark:text-white hover:text-blue-500">{{ $card->name }} ({{ $card->id_card }})</p>
+                                    <p class="dark:text-white hover:text-blue-500">{{ $card->name }}
+                                        ({{ $card->id_card }})</p>
                                 </a>
                                 <p class="text-gray-600 dark:text-gray-400">{{ $card->artist }}</p>
                                 <a href="{{ route('set', ['set' => $card->set->id_set]) }}"
@@ -28,7 +30,8 @@
                     <p class="mt-4 text-gray-500 dark:text-gray-400">This user has no cards in their collection.</p>
                 @endif
                 <a href="{{ route('users.show', ['id' => $userId]) }}"
-                   class="mt-4 text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500">View collection</a>
+                   class="mt-4 text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500">View
+                    collection</a>
             </div>
         @endforeach
         @if(count($collections) == 0)

@@ -6,7 +6,6 @@ use App\Events\AllSetCardsCollected;
 use App\Http\Requests\ModifyPatchRequest;
 use App\Models\Card;
 use App\Models\Collection;
-use App\Models\Set;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
