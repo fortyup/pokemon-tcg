@@ -19,7 +19,7 @@ class FetchPokemonCards extends Command
 
     protected $description = 'Fetch and store Pokemon data from the API';
 
-    public function handle()
+    public function handle(): void
     {
         $pageSize = 250;
         $page = 1;
@@ -35,7 +35,7 @@ class FetchPokemonCards extends Command
             if (isset($data['data'])) {
                 foreach ($data['data'] as $cardData) {
                     // Table 'sets':
-                    $set = Set::updateOrCreate(
+                    $set = Set::firstOrNew(
                         ['id_set' => $cardData['set']['id']],
                         [
                             'name' => $cardData['set']['name'],
@@ -50,8 +50,12 @@ class FetchPokemonCards extends Command
                         ]
                     );
 
+                    if (!$set->exists) {
+                        $set->save();
+                    }
+
                     // Table 'legalities':
-                    Legality::updateOrCreate(
+                    $legality = Legality::firstOrNew(
                         ['set_id' => $set->id],
                         [
                             'standard' => $cardData['set']['legalities']['standard'] ?? null,
@@ -60,8 +64,12 @@ class FetchPokemonCards extends Command
                         ]
                     );
 
+                    if (!$legality->exists) {
+                        $legality->save();
+                    }
+
                     // Table 'cards':
-                    $card = Card::updateOrCreate(
+                    $card = Card::firstOrNew(
                         ['id_card' => $cardData['id']],
                         [
                             'name' => $cardData['name'],
@@ -82,6 +90,10 @@ class FetchPokemonCards extends Command
                             'set_id' => $set->id,
                         ]
                     );
+
+                    if (!$card->exists) {
+                        $card->save();
+                    }
 
                     // Table 'rules':
                     if (isset($cardData['rules']) && is_array($cardData['rules'])) {
@@ -147,5 +159,6 @@ class FetchPokemonCards extends Command
         } while (isset($data['data']) && count($data['data']) === $pageSize);
 
         $this->info('Pokemon data have been fetched and stored in the database.');
+        $this->info(Card::where('created_at', '>', now()->subDay())->count() . ' new cards have been added.');
     }
 }
