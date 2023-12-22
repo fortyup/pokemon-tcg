@@ -49,7 +49,12 @@ Follow these instructions to get the project up and running on your local machin
 5. Generate an application key: ```php artisan key:generate```
 6. Run database migrations and seed the database: ```php artisan migrate --seed```
 7. Start the development server: ```php artisan serve```
-   The application should now be accessible at http://localhost:8000.
+   The application should now be accessible at http://localhost.
+
+## To compile frontend assets 🛠️
+1. Enter in a terminal of your container: ```./vendor/bin/sail bash```
+2. Install npm dependencies: ```npm install```
+3. Compile assets: ```npm run dev```
 
 ## API Key 🔑
 
@@ -58,7 +63,7 @@ your .env file: ```POKEMON_TCG_API_KEY=your-api-key```
 
 ## Usage 📝
 
-- Open your web browser and navigate to http://localhost:8000.
+- Open your web browser and navigate to http://localhost.
 - Sign up for an account or log in if you already have one.
 - Start exploring Pokémon cards, adding them to your collection, and managing your collection.
 
