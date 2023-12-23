@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('rules', function (Blueprint $table) {
+        Schema::create('rule', function (Blueprint $table) {
             $table->id();
             $table->text('rule')->nullable();
             $table->unsignedBigInteger('card_id'); // foreign key
@@ -25,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('rules');
+        Schema::dropIfExists('rule');
     }
 };
