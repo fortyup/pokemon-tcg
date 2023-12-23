@@ -42,6 +42,13 @@
         </form>
     </div>
 
+    <!-- Button to export the collection -->
+    <form class="mb-5" action="{{ route('collection.export') }}" method="get">
+        <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+            Export Collection
+        </button>
+    </form>
+
 
     <!-- Search form for ordering and sorting -->
     <form class="mb-5" action="{{ route('collection.index') }}" method="get">

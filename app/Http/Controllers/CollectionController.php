@@ -10,6 +10,8 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
+use League\Csv\Writer;
 
 class CollectionController extends Controller
 {
@@ -57,6 +59,42 @@ class CollectionController extends Controller
             'order' => $order,
             'sort' => $sort
         ]);
+    }
+
+    public function exportCollectionToCsv()
+    {
+        // Récupérer l'utilisateur actuellement authentifié
+        $user = Auth::user();
+
+        // Récupérer la collection de cartes de l'utilisateur
+        $userCollection = Collection::where('user_id', $user->id)->get();
+
+        // Créer un objet CSV
+        $csv = Writer::createFromString('');
+
+        // Ajouter l'en-tête CSV
+        $csv->insertOne(['Card Name', 'Set Name', 'Card Number', 'Small Image'],);
+
+        // Ajouter les données de chaque carte à la CSV
+        foreach ($userCollection as $card) {
+            $cardInfo = Card::find($card->card_id);
+
+            // Ajouter une ligne pour chaque carte
+            $csv->insertOne([
+                $cardInfo->name,
+                $cardInfo->set->name,
+                $cardInfo->number,
+            ]);
+        }
+
+        // Définir les entêtes pour la réponse
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $user->name . '\'s Collection.csv"',
+        ];
+
+        // Retourner la réponse avec le contenu CSV
+        return Response::make($csv->getContent(), 200, $headers);
     }
 
     public function modifyNameCollection(ModifyPatchRequest $request): RedirectResponse

@@ -26,6 +26,7 @@ Route::get('/sets', [SetController::class, 'getSets'])->name('sets');
 Route::get('/sets/{set}', [SetController::class, 'getSet'])->name('set');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/collection/export', [CollectionController::class, 'exportCollectionToCsv'])->name('collection.export');
     Route::get('/collection', [CollectionController::class, 'showCollection'])->name('collection.index');
     Route::patch('/collection', [CollectionController::class, 'modifyNameCollection'])->name('collection.update');
     Route::delete('/collection/{card}', [CollectionController::class, 'removeCard'])->name('collection.remove');
