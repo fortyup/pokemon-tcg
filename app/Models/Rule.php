@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rule extends Model
 {
-    protected $table = 'rules';
+    protected $table = 'rule';
     protected $fillable = ['id', 'rule', 'card_id'];
 
     /**
