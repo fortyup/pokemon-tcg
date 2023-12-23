@@ -35,7 +35,7 @@ class FetchPokemonCards extends Command
             if (isset($data['data'])) {
                 foreach ($data['data'] as $cardData) {
                     // Table 'sets':
-                    $set = Set::firstOrNew(
+                    $set = Set::updateOrCreate(
                         ['id_set' => $cardData['set']['id']],
                         [
                             'name' => $cardData['set']['name'],
@@ -50,12 +50,8 @@ class FetchPokemonCards extends Command
                         ]
                     );
 
-                    if (!$set->exists) {
-                        $set->save();
-                    }
-
                     // Table 'legalities':
-                    $legality = Legality::firstOrNew(
+                    Legality::updateOrCreate(
                         ['set_id' => $set->id],
                         [
                             'standard' => $cardData['set']['legalities']['standard'] ?? null,
@@ -64,12 +60,8 @@ class FetchPokemonCards extends Command
                         ]
                     );
 
-                    if (!$legality->exists) {
-                        $legality->save();
-                    }
-
                     // Table 'cards':
-                    $card = Card::firstOrNew(
+                    $card = Card::updateOrCreate(
                         ['id_card' => $cardData['id']],
                         [
                             'name' => $cardData['name'],
@@ -91,10 +83,6 @@ class FetchPokemonCards extends Command
                         ]
                     );
 
-                    if (!$card->exists) {
-                        $card->save();
-                    }
-
                     // Table 'rules':
                     if (isset($cardData['rules']) && is_array($cardData['rules'])) {
                         foreach ($cardData['rules'] as $rule) {
@@ -107,22 +95,29 @@ class FetchPokemonCards extends Command
 
                     // Table 'attacks':
                     if (isset($cardData['attacks']) && is_array($cardData['attacks'])) {
-                        foreach ($cardData['attacks'] as $attacks) {
-                            Attack::create([
-                                'name' => $attacks['name'],
-                                'cost' => $attacks['cost'],
-                                'convertedEnergyCost' => $attacks['convertedEnergyCost'],
-                                'damage' => $attacks['damage'],
-                                'text' => $attacks['text'] ?? null,
-                                'card_id' => $card->id,
-                            ]);
+                        foreach ($cardData['attacks'] as $attack) {
+                            $existingAttack = Attack::where('name', $attack['name'])->where('card_id', $card->id)->first();
+
+                            if (! $existingAttack) {
+                                $attackModel = new Attack();
+                                $attackModel->name = $attack['name'];
+                                $attackModel->cost = $attack['cost'];
+                                $attackModel->convertedEnergyCost = $attack['convertedEnergyCost'];
+                                $attackModel->damage = $attack['damage'];
+                                $attackModel->text = $attack['text'] ?? null;
+                                $attackModel->card_id = $card->id;
+                                $attackModel->save();
+                            } else {
+                                $existingAttack->fill($attack);
+                                $existingAttack->save();
+                            }
                         }
                     }
 
                     // Table 'abilities':
                     if (isset($cardData['abilities']) && is_array($cardData['abilities'])) {
                         foreach ($cardData['abilities'] as $ability) {
-                            Ability::create([
+                            Ability::updateOrCreate([
                                 'name' => $ability['name'],
                                 'text' => $ability['text'],
                                 'type' => $ability['type'],
@@ -134,7 +129,7 @@ class FetchPokemonCards extends Command
                     // Table 'types':
                     if (isset($cardData['types']) && is_array($cardData['types'])) {
                         foreach ($cardData['types'] as $type) {
-                            Type::create([
+                            Type::updateOrCreate([
                                 'type' => $type,
                                 'card_id' => $card->id,
                             ]);
@@ -144,7 +139,7 @@ class FetchPokemonCards extends Command
                     // Table 'subtypes':
                     if (isset($cardData['subtypes']) && is_array($cardData['subtypes'])) {
                         foreach ($cardData['subtypes'] as $subtype) {
-                            Subtype::create([
+                            Subtype::updateOrCreate([
                                 'subtype' => $subtype,
                                 'card_id' => $card->id,
                             ]);
@@ -160,5 +155,9 @@ class FetchPokemonCards extends Command
 
         $this->info('Pokemon data have been fetched and stored in the database.');
         $this->info(Card::where('created_at', '>', now()->subDay())->count() . ' new cards have been added.');
+        $this->info(Rule::where('created_at', '>', now()->subDay())->count() . ' new rules have been added.');
+        $this->info(Ability::where('created_at', '>', now()->subDay())->count() . ' new abilities have been added.');
+        $this->info(Attack::where('created_at', '>', now()->subDay())->count() . ' new attacks have been added.');
+
     }
 }
