@@ -90,7 +90,7 @@ class CollectionController extends Controller
         $csv = Writer::createFromString('');
 
         // Ajouter l'en-tête CSV
-        $csv->insertOne(['Card Name', 'Set Name', 'Card Number']);
+        $csv->insertOne(['Card Name', 'Set Name', 'Rarity', 'Number']);
 
         // Ajouter les données de chaque carte à la CSV
         foreach ($userCollection as $card) {
@@ -100,7 +100,9 @@ class CollectionController extends Controller
             $csv->insertOne([
                 $cardInfo->name,
                 $cardInfo->set->name,
-                $cardInfo->number,
+                $cardInfo->rarity,
+                sprintf('%03d', $cardInfo->number). '/' . sprintf('%03d', $cardInfo->set->cards->count())
+
             ]);
         }
 
