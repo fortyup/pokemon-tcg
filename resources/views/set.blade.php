@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="flex flex-row items-center mb-5">
+        <img src="{{ $set->symbol }}" alt="{{ $set->name }}" class="w-10 h-10 mr-5">
         <h1 class="text-4xl font-bold mr-2">{{ $set->name }}</h1>
         <p class="text-xl text-gray-500">({{ $set->id_set }})</p>
     </div>
