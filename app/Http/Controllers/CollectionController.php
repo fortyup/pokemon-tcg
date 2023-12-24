@@ -235,9 +235,12 @@ class CollectionController extends Controller
             array_push($cardCollection, $cardInfo);
         }
 
-        // Return the view with the user's card collection
+        // Group the cards by set
+        $groupedCards = collect($cardCollection)->groupBy('set.name');
+
+        // Return the view with the user's card collection grouped by set
         return view('users.show', [
-            'cards' => $cardCollection,
+            'groupedCards' => $groupedCards,
             'user' => $user,
         ]);
     }
