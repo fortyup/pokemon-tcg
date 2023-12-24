@@ -9,7 +9,8 @@
                 <h2 class="text-2xl font-semibold dark:text-white">{{ $userData['name'] }}'s Collection</h2>
                 @if(count($userData['cards']) > 0)
                     <ul class="mt-4">
-                        @foreach($userData['cards'] as $card)
+                        <!-- limiter à 10 cartes -->
+                        @foreach(array_slice($userData['cards'], 0, 10) as $card)
                             <div
                                 class="flex items-center justify-between border-t border-gray-300 dark:border-gray-700 pt-2">
                                 <a href="{{ route('card', ['card' => $card->id_card]) }}">
@@ -28,6 +29,9 @@
                     </ul>
                 @else
                     <p class="mt-4 text-gray-500 dark:text-gray-400">This user has no cards in their collection.</p>
+                @endif
+                @if(count($userData['cards']) > 10)
+                    <p class="mt-2 mb-4">and {{ count($userData['cards']) - 10 }} more...</p>
                 @endif
                 <a href="{{ route('users.show', ['id' => $userId]) }}"
                    class="mt-4 text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500">View
