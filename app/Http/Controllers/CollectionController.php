@@ -52,12 +52,26 @@ class CollectionController extends Controller
         $userCollection = Collection::where('user_id', $user->id)->first();
         $collectionName = $userCollection->name ?? 'My Empty Collection';
 
+        $groupedCards = [];
+        foreach ($cardCollection as $card) {
+            $setName = $card->set->name;
+
+            // Vérifiez si le nom de l'ensemble existe déjà dans le tableau
+            if (!isset($groupedCards[$setName])) {
+                $groupedCards[$setName] = [];
+            }
+
+            // Ajoutez la carte au groupe correspondant
+            $groupedCards[$setName][] = $card;
+        }
+
         // Return the view with the sorted card collection
         return view('collection.index', [
             'cards' => $cardCollection,
             'collectionName' => $collectionName,
             'order' => $order,
-            'sort' => $sort
+            'sort' => $sort,
+            'groupedCards' => $groupedCards,
         ]);
     }
 
@@ -73,7 +87,7 @@ class CollectionController extends Controller
         $csv = Writer::createFromString('');
 
         // Ajouter l'en-tête CSV
-        $csv->insertOne(['Card Name', 'Set Name', 'Card Number', 'Small Image'],);
+        $csv->insertOne(['Card Name', 'Set Name', 'Card Number']);
 
         // Ajouter les données de chaque carte à la CSV
         foreach ($userCollection as $card) {

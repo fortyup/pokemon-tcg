@@ -43,10 +43,12 @@
     </div>
 
     <!-- Button to export the collection -->
-    <form class="mb-5" action="{{ route('collection.export') }}" method="get">
+    <form class="mb-5 flex flex-row" action="{{ route('collection.export') }}" method="get">
         <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
             Export Collection
         </button>
+        <!-- Nombre de cartes dans la collection -->
+        <p class="text-xl p-2">{{ count($cards) }} cards in your collection.</p>
     </form>
 
 
@@ -77,9 +79,14 @@
     @if (count($cards) === 0)
         <p class="text-xl">You don't have any cards in your collection.</p>
     @endif
+    @foreach($groupedCards as $setName => $setCards)
+        <h2 class="text-xl mb-3 mt-5 font-bold underline underline-offset-8">{{ $setName }}</h2>
+        <!-- Nombre de cartes du set dans la collection sur le nombre total de cartes du set -->
+        <p class="text-xl p-2">{{ count($setCards) }} cards in your collection.</p>
 
-    <div class="mt-4 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-        @foreach($cards as $card)
+        <!-- Grid layout for cards within the set -->
+        <div class="mt-4 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        @foreach($setCards as $card)
             <div class="bg-gray-100 dark:bg-slate-700 rounded-lg shadow-md grid grid-cols-1">
                 <a href="{{ route('card', ['card' => $card->id_card]) }}">
                     <img src="{{ $card->smallImage }}" alt="{{ $card->name }}"
@@ -102,6 +109,7 @@
             </div>
         @endforeach
     </div>
+    @endforeach
 
     <script>
         if ({{ count($cards) }} === 0) {
