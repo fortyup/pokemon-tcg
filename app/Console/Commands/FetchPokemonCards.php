@@ -86,9 +86,9 @@ class FetchPokemonCards extends Command
                     // Table 'rule':
                     if (isset($cardData['rules']) && is_array($cardData['rules'])) {
                         foreach ($cardData['rules'] as $rule) {
-                            Rule::updateOrCreate([
+                            Rule::updateOrInsert([
                                 'rule' => $rule,
-                                'card_id' => $card->id,
+                                'card_id' => $card->id
                             ]);
                         }
                     }
@@ -115,7 +115,7 @@ class FetchPokemonCards extends Command
                     // Table 'ability':
                     if (isset($cardData['abilities']) && is_array($cardData['abilities'])) {
                         foreach ($cardData['abilities'] as $ability) {
-                            Ability::updateOrCreate([
+                            Ability::updateOrInsert([
                                 'name' => $ability['name'],
                                 'text' => $ability['text'],
                                 'type' => $ability['type'],
@@ -127,7 +127,7 @@ class FetchPokemonCards extends Command
                     // Table 'type':
                     if (isset($cardData['types']) && is_array($cardData['types'])) {
                         foreach ($cardData['types'] as $type) {
-                            Type::updateOrCreate([
+                            Type::updateOrInsert([
                                 'type' => $type,
                                 'card_id' => $card->id,
                             ]);
@@ -137,7 +137,7 @@ class FetchPokemonCards extends Command
                     // Table 'subtype':
                     if (isset($cardData['subtypes']) && is_array($cardData['subtypes'])) {
                         foreach ($cardData['subtypes'] as $subtype) {
-                            Subtype::updateOrCreate([
+                            Subtype::updateOrInsert([
                                 'subtype' => $subtype,
                                 'card_id' => $card->id,
                             ]);
