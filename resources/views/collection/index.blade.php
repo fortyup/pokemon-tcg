@@ -80,9 +80,11 @@
         <p class="text-xl">You don't have any cards in your collection.</p>
     @endif
     @foreach($groupedCards as $setName => $setCards)
-        <h2 class="text-xl mb-3 mt-5 font-bold underline underline-offset-8">{{ $setName }}</h2>
-        <!-- Nombre de cartes du set dans la collection sur le nombre total de cartes du set -->
-        <p class="text-xl p-2">{{ count($setCards) }} cards in your collection.</p>
+        <div class="flex flex-row items-center mb-3 mt-5">
+            <h2 class="text-xl font-bold underline underline-offset-8">{{ $setName }}</h2>
+            <p class="text-gray-400 p-2">{{ count($setCards) }} cards in your collection.</p>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-2 rounded toggle-button">Show/Hide</button>
+        </div>
 
         <!-- Grid layout for cards within the set -->
         <div class="mt-4 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
@@ -122,6 +124,14 @@
         editIcon.addEventListener('click', function () {
             editForm.style.display = 'block';
             editIcon.style.display = 'none';
+        });
+    </script>
+    <script>
+        document.querySelectorAll('.toggle-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const cardList = button.parentElement.nextElementSibling;
+                cardList.classList.toggle('hidden');
+            });
         });
     </script>
 @endsection
