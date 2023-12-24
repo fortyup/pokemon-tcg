@@ -1,7 +1,10 @@
 @extends('master')
 
 @section('content')
-    <h1 class="text-4xl font-bold mb-5">{{ $set->name }} ({{ $set->id_set }})</h1>
+    <div class="flex flex-row items-center mb-5">
+        <h1 class="text-4xl font-bold mr-2">{{ $set->name }}</h1>
+        <p class="text-xl text-gray-500">({{ $set->id_set }})</p>
+    </div>
 
     <!-- Search form for ordering and sorting -->
     <form class="mb-5" action="{{ route('set', ['set' => $set->id_set]) }}" method="get">

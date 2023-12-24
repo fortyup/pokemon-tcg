@@ -65,6 +65,8 @@ class CollectionController extends Controller
             $groupedCards[$setName][] = $card;
         }
 
+        $set = $card->set;
+
         // Return the view with the sorted card collection
         return view('collection.index', [
             'cards' => $cardCollection,
@@ -72,6 +74,7 @@ class CollectionController extends Controller
             'order' => $order,
             'sort' => $sort,
             'groupedCards' => $groupedCards,
+            'set' => $set,
         ]);
     }
 

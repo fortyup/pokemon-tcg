@@ -81,8 +81,10 @@
     @endif
     @foreach($groupedCards as $setName => $setCards)
         <div class="flex flex-row items-center mb-3 mt-5">
-            <h2 class="text-xl font-bold underline underline-offset-8">{{ $setName }}</h2>
-            <p class="text-gray-400 p-2">{{ count($setCards) }} cards in your collection.</p>
+            <a href="{{ route('set', ['set' => $setCards[0]->set->id_set]) }}" class="flex flex-row items-center">
+                <img src="{{ $setCards[0]->set->symbol }}" alt="{{ $setCards[0]->set->name }}" class="w-6 h-6">
+                <h2 class="text-xl font-bold underline underline-offset-8 m-2">{{ $setName }}</h2>
+            </a>
             <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-2 rounded toggle-button">Show/Hide</button>
         </div>
 
