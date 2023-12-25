@@ -81,6 +81,10 @@ class CollectionController extends Controller
 
             // Ajoutez la carte au groupe correspondant
             $groupedCards[$setName][] = $card;
+            // Trier les cartes par numéro décroissant
+            usort($groupedCards[$setName], function ($a, $b) {
+                return $b->number - $a->number;
+            });
         }
 
         $set = $card->set;

@@ -88,7 +88,7 @@
         </div>
 
         <!-- Grid layout for cards within the set -->
-        <div class="mt-4 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        <div class="mt-4 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 toggle-container">
         @foreach($setCards as $card)
             <div class="bg-gray-100 dark:bg-slate-700 rounded-lg shadow-md grid grid-cols-1">
                 <a href="{{ route('card', ['card' => $card->id_card]) }}">
@@ -128,10 +128,36 @@
         });
     </script>
     <script>
-        document.querySelectorAll('.toggle-button').forEach(button => {
-            button.addEventListener('click', () => {
+        document.addEventListener('DOMContentLoaded', function () {
+            // JavaScript for showing the edit form
+            const editIcon = document.getElementById('editIcon');
+            const editForm = document.getElementById('editForm');
+
+            editIcon.addEventListener('click', function () {
+                editForm.style.display = 'block';
+                editIcon.style.display = 'none';
+            });
+
+            // JavaScript for showing/hiding card lists
+            document.querySelectorAll('.toggle-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const cardList = button.parentElement.nextElementSibling;
+                    cardList.classList.toggle('hidden');
+
+                    // Store the show/hide state in local storage
+                    const setKey = button.parentElement.querySelector('h2').textContent.trim();
+                    const currentState = cardList.classList.contains('hidden') ? 'hidden' : 'visible';
+                    localStorage.setItem(`toggleState_${setKey}`, currentState);
+                });
+
+                // Restore show/hide state from local storage
                 const cardList = button.parentElement.nextElementSibling;
-                cardList.classList.toggle('hidden');
+                const setKey = button.parentElement.querySelector('h2').textContent.trim();
+                const storedState = localStorage.getItem(`toggleState_${setKey}`);
+
+                if (storedState === 'hidden') {
+                    cardList.classList.add('hidden');
+                }
             });
         });
     </script>
