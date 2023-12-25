@@ -58,7 +58,6 @@
             <!-- Dropdown for ordering -->
             <select name="order" class="dark:bg-slate-200 dark:text-black rounded">
                 <option value="name" {{ $order === 'name' ? 'selected' : '' }}>Name</option>
-                <option value="rarity" {{ $order === 'rarity' ? 'selected' : '' }}>Rarity</option>
                 <option value="set" {{ $order === 'set' ? 'selected' : '' }}>Set</option>
             </select>
         </label>

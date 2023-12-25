@@ -36,18 +36,36 @@ class CollectionController extends Controller
 
         // Sort the collection using the custom sorting function
         usort($cardCollection, function ($a, $b) use ($order, $sort) {
-            if ($sort == 'Asc') {
-                if ($a->set->name == $b->set->name) {
-                    return $a->number > $b->number;
+            // Check if the order is set and sort is Asc or Desc
+            if ($order == 'set') {
+                $comparison = 0;
+
+                // Compare sets by release date
+                if ($a->set->releaseDate < $b->set->releaseDate) {
+                    $comparison = -1;
+                } elseif ($a->set->releaseDate > $b->set->releaseDate) {
+                    $comparison = 1;
                 }
-                return $a->$order > $b->$order;
+
+                // If sorting is Desc, reverse the order
+                return ($sort == 'Asc') ? $comparison : -$comparison;
+            }
+
+            // Order by set name
+            if ($order == 'name') {
+                $comparison = strcmp($a->set->name, $b->set->name);
+
+                // If sorting is Desc, reverse the order
+                return ($sort == 'Asc') ? $comparison : -$comparison;
             } else {
-                if ($a->set->name == $b->set->name) {
-                    return $a->number < $b->number;
-                }
-                return $a->$order < $b->$order;
+                // Order by card number
+                $comparison = $a->number - $b->number;
+
+                // If sorting is Desc, reverse the order
+                return ($sort == 'Asc') ? $comparison : -$comparison;
             }
         });
+
         // Get the user's collection name
         $userCollection = Collection::where('user_id', $user->id)->first();
         $collectionName = $userCollection->name ?? 'My Empty Collection';
