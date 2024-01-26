@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use League\Csv\Writer;
 
+const COLLECTION_INDEX = 'collection.index';
+
 class CollectionController extends Controller
 {
     public function showCollection(Request $request)
@@ -25,6 +27,33 @@ class CollectionController extends Controller
         $sort = $request->input('sort', 'Desc');
 
         // Retrieve the user's card collection
+        $cardCollection = $this->getUserCollection($user);
+
+        // Sort the collection
+        $cardCollection = $this->sortCardCollection($cardCollection, $order, $sort);
+
+        // Group the cards by set
+        $groupedCards = $this->groupCardsBySet($cardCollection);
+
+        // Get the user's collection name
+        $userCollection = Collection::where('user_id', $user->id)->first();
+        $collectionName = $userCollection->name ?? 'My Empty Collection';
+
+        $set = $cardCollection[0]->set;
+
+        // Return the view with the sorted card collection
+        return view(COLLECTION_INDEX, [
+            'cards' => $cardCollection,
+            'collectionName' => $collectionName,
+            'order' => $order,
+            'sort' => $sort,
+            'groupedCards' => $groupedCards,
+            'set' => $set,
+        ]);
+    }
+
+    private function getUserCollection($user)
+    {
         $userCollection = Collection::where('user_id', $user->id)->get();
         $cardCollection = [];
 
@@ -34,42 +63,30 @@ class CollectionController extends Controller
             array_push($cardCollection, $cardInfo);
         }
 
-        // Sort the collection using the custom sorting function
+        return $cardCollection;
+    }
+
+    private function sortCardCollection($cardCollection, $order, $sort)
+    {
         usort($cardCollection, function ($a, $b) use ($order, $sort) {
             // Check if the order is set and sort is Asc or Desc
             if ($order == 'set') {
-                $comparison = 0;
-
-                // Compare sets by release date
-                if ($a->set->releaseDate < $b->set->releaseDate) {
-                    $comparison = -1;
-                } elseif ($a->set->releaseDate > $b->set->releaseDate) {
-                    $comparison = 1;
-                }
-
-                // If sorting is Desc, reverse the order
-                return ($sort == 'Asc') ? $comparison : -$comparison;
-            }
-
-            // Order by set name
-            if ($order == 'name') {
+                $comparison = $a->set->releaseDate <=> $b->set->releaseDate;
+            } elseif ($order == 'name') {
                 $comparison = strcmp($a->set->name, $b->set->name);
-
-                // If sorting is Desc, reverse the order
-                return ($sort == 'Asc') ? $comparison : -$comparison;
             } else {
-                // Order by card number
-                $comparison = $a->number - $b->number;
-
-                // If sorting is Desc, reverse the order
-                return ($sort == 'Asc') ? $comparison : -$comparison;
+                $comparison = $a->number <=> $b->number;
             }
+
+            // If sorting is Desc, reverse the order
+            return ($sort == 'Asc') ? $comparison : -$comparison;
         });
 
-        // Get the user's collection name
-        $userCollection = Collection::where('user_id', $user->id)->first();
-        $collectionName = $userCollection->name ?? 'My Empty Collection';
+        return $cardCollection;
+    }
 
+    private function groupCardsBySet($cardCollection)
+    {
         $groupedCards = [];
         foreach ($cardCollection as $card) {
             $setName = $card->set->name;
@@ -87,17 +104,7 @@ class CollectionController extends Controller
             });
         }
 
-        $set = $card->set;
-
-        // Return the view with the sorted card collection
-        return view('collection.index', [
-            'cards' => $cardCollection,
-            'collectionName' => $collectionName,
-            'order' => $order,
-            'sort' => $sort,
-            'groupedCards' => $groupedCards,
-            'set' => $set,
-        ]);
+        return $groupedCards;
     }
 
     public function exportCollectionToCsv()
@@ -154,7 +161,7 @@ class CollectionController extends Controller
         $userCollection->name = $newName;
         $userCollection->save();
 
-        return redirect()->route('collection.index');
+        return redirect()->route(COLLECTION_INDEX);
     }
 
     public function removeCard(Card $card)
@@ -170,7 +177,7 @@ class CollectionController extends Controller
             $userCollection->delete();
         }
 
-        return redirect()->route('collection.index');
+        return redirect()->route(COLLECTION_INDEX);
     }
 
     public function addCard(Card $card)
@@ -184,7 +191,7 @@ class CollectionController extends Controller
 
         if ($userCollection) {
             // Redirect if the card is already in the collection
-            return redirect()->route('collection.index');
+            return redirect()->route(COLLECTION_INDEX);
         }
 
         // Add the card to the user's collection
@@ -204,7 +211,7 @@ class CollectionController extends Controller
             event(new AllSetCardsCollected($user, $set));
         }
 
-        return redirect()->route('collection.index');
+        return redirect()->route(COLLECTION_INDEX);
     }
 
 

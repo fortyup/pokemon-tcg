@@ -44,10 +44,13 @@ class CardController extends Controller
         $rules = $card->rules;
         $abilities = $card->abilities;
         $user = Auth::user();
-        if ($user)
+        if ($user) {
             $isInCollection = Collection::where('user_id', $user->id)->where('card_id', $card->id)->first();
-        else
+
+        }
+        else {
             $isInCollection = null;
+        }
 
         return view('card', [
             'card' => $card,
