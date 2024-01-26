@@ -10,7 +10,7 @@
     <!-- Include CSS using Vite -->
     @vite('resources/css/app.css')
 </head>
-<body class="dark:bg-slate-800 dark:text-white">
+<body class="dark:bg-slate-800 dark:text-white flex flex-col min-h-screen">
 <header class="flex shadow-md w-full h-16">
     <!-- Logo and site title -->
     <a href="{{ route('index') }}" class="flex items-center">
@@ -106,9 +106,20 @@
     </nav>
 </header>
 
-<div class="container max-w-full p-12">
+<div class="container max-w-full p-12 flex-grow">
     <!-- Content section -->
     @yield('content')
 </div>
+
+<footer>
+    <div class="flex justify-center items-center h-16 bg-gray-100 dark:bg-slate-700 flex-col p-16">
+        <p class="text-gray-600 dark:text-white">© {{date('Y')}} - Made by <a href="https://twitter.com/fortyup_"
+                                                                              class="text-blue-500 hover:text-blue-700">fortyup</a>
+        </p>
+        <p>All datas come from <a href="https://pokemontcg.io/"
+                                  class="text-blue-500 hover:text-blue-700">Pokémon TCG API</a></p>
+        <p>This website is not produced, endorsed, supported, or affiliated with Nintendo or The Pokémon Company.</p>
+    </div>
+</footer>
 </body>
 </html>
