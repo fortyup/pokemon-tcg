@@ -14,7 +14,8 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
      */
     public function register(): void
     {
-        // Telescope::night();
+        // Le theme de telescope est défini en fonction de l'environnement de l'application
+        Telescope::night();
 
         $this->hideSensitiveRequestDetails();
 

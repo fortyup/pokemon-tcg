@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 /* Routes of my application */
+const URL_PROFILE = '/profile';
+
 Route::get('/cards', [CardController::class, 'getAllCards'])->name('cards');
 Route::post('/cards', [CardController::class, 'getAllCards'])->name('process.cards');
 Route::get('/cards/{card}', [CardController::class, 'getCard'])->name('card');
@@ -51,9 +53,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get(URL_PROFILE, [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch(URL_PROFILE, [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete(URL_PROFILE, [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__ . '/auth.php';
