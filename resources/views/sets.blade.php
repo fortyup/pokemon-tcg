@@ -32,14 +32,16 @@
                         <!-- Set legalities -->
                         <div class="pl-5">
                             @foreach($set->legalities as $legality)
-                                <!-- Check if Standard is Legal -->
-                                @if($legality->standard == 'Legal')
-                                    <li>Standard Legal</li>
-                                @endif
-                                <!-- Check if Expanded is Legal -->
-                                @if($legality->expanded == 'Legal')
-                                    <li>Expanded Legal</li>
-                                @endif
+                                <ul>
+                                    <!-- Check if Standard is Legal -->
+                                    @if($legality->standard == 'Legal')
+                                        <li>Standard Legal</li>
+                                    @endif
+                                    <!-- Check if Expanded is Legal -->
+                                    @if($legality->expanded == 'Legal')
+                                        <li>Expanded Legal</li>
+                                    @endif
+                                </ul>
                             @endforeach
                         </div>
                     </a>
