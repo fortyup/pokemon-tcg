@@ -12,7 +12,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('fetch:pokemon-cards')->monthly()
+        $schedule->command('fetch:pokemon-cards')->monthly();
     }
 
     /**
