@@ -10,8 +10,10 @@
     @endif
 
     @foreach ($groupedCards as $setName => $setCards)
-        <a href="{{ route('set', ['set' => $setCards->first()->set->id_set]) }}" class="mr-2 flex flex-row items-center mt-4">
-            <img src="{{ $setCards->first()->set->symbol }}" alt="{{ $setCards->first()->set->name }}" class="w-6 h-6 mr-2">
+        <a href="{{ route('set', ['set' => $setCards->first()->set->id_set]) }}"
+           class="mr-2 flex flex-row items-center mt-4">
+            <img src="{{ $setCards->first()->set->symbol }}" alt="{{ $setCards->first()->set->name }}"
+                 class="w-6 h-6 mr-2">
             <h2 class="text-2xl font-semibold">{{ $setName }}</h2>
         </a>
         <div class="mt-4 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">

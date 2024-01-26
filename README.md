@@ -52,6 +52,7 @@ Follow these instructions to get the project up and running on your local machin
    The application should now be accessible at http://localhost.
 
 ## To compile frontend assets 🛠️
+
 1. Enter in a terminal of your container: ```./vendor/bin/sail bash```
 2. Install npm dependencies: ```npm install```
 3. Compile assets: ```npm run dev```

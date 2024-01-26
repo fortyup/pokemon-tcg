@@ -89,29 +89,30 @@
 
         <!-- Grid layout for cards within the set -->
         <div class="mt-4 grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 toggle-container">
-        @foreach($setCards as $card)
-            <div class="bg-gray-100 dark:bg-slate-700 rounded-lg shadow-md grid grid-cols-1">
-                <a href="{{ route('card', ['card' => $card->id_card]) }}">
-                    <img src="{{ $card->smallImage }}" alt="{{ $card->name }}"
-                         class="rounded-lg w-full hover:scale-110 transition"
-                         style="box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.45)">
-                </a>
-                <div class="p-4">
-                    <h3 class="text-xl font-semibold dark:text-white">{{ $card->name }}</h3>
-                    <p class="text-gray-500 dark:text-gray-400">{{ $card->set->name }}</p>
+            @foreach($setCards as $card)
+                <div class="bg-gray-100 dark:bg-slate-700 rounded-lg shadow-md grid grid-cols-1">
+                    <a href="{{ route('card', ['card' => $card->id_card]) }}">
+                        <img src="{{ $card->smallImage }}" alt="{{ $card->name }}"
+                             class="rounded-lg w-full hover:scale-110 transition"
+                             style="box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.45)">
+                    </a>
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold dark:text-white">{{ $card->name }}</h3>
+                        <p class="text-gray-500 dark:text-gray-400">{{ $card->set->name }}</p>
+                    </div>
+                    <!-- Form for Removing Card from Collection -->
+                    <form class="pl-4 pb-4" action="{{ route('collection.remove', ['card' => $card->id_card]) }}"
+                          method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                            Remove
+                        </button>
+                    </form>
                 </div>
-                <!-- Form for Removing Card from Collection -->
-                <form class="pl-4 pb-4" action="{{ route('collection.remove', ['card' => $card->id_card]) }}"
-                      method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                        Remove
-                    </button>
-                </form>
-            </div>
-        @endforeach
-    </div>
+            @endforeach
+        </div>
     @endforeach
 
     <script>
