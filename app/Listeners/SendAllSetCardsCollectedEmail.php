@@ -11,7 +11,7 @@ class SendAllSetCardsCollectedEmail
 {
     public function __construct()
     {
-        //
+        // Do nothing because we don't need to inject anything
     }
 
     public function handle(AllSetCardsCollected $event)
