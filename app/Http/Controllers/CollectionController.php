@@ -26,8 +26,8 @@ class CollectionController extends Controller
         $order = $request->input('order', 'set');
         $sort = $request->input('sort', 'Desc');
 
-        // Retrieve the user's card collection
-        $cardCollection = $this->getUserCollection($user);
+        // Retrieve the user's card collection with relationships
+        $cardCollection = $user->collections()->with('card.set')->get()->pluck('card');
 
         // Sort the collection
         $cardCollection = $this->sortCardCollection($cardCollection, $order, $sort);
@@ -36,10 +36,9 @@ class CollectionController extends Controller
         $groupedCards = $this->groupCardsBySet($cardCollection);
 
         // Get the user's collection name
-        $userCollection = Collection::where('user_id', $user->id)->first();
-        $collectionName = $userCollection->name ?? 'My Empty Collection';
+        $collectionName = $user->collections()->value('name') ?? 'My Empty Collection';
 
-        $set = $cardCollection[0]->set;
+        $set = $request->input('set', null);
 
         // Return the view with the sorted card collection
         return view(COLLECTION_INDEX, [
@@ -52,48 +51,32 @@ class CollectionController extends Controller
         ]);
     }
 
-    private function getUserCollection($user)
-    {
-        $userCollection = Collection::where('user_id', $user->id)->get();
-        $cardCollection = [];
-
-        // For each card in the user's collection, fetch card information
-        $userCollection = Collection::where('user_id', $user->id)->with('card.set')->get();
-        $cardCollection = $userCollection->pluck('card');
-
-        return $cardCollection;
-    }
-
     private function sortCardCollection($cardCollection, $order, $sort)
     {
-        $cardCollection = $cardCollection->sortByDesc(function ($card) use ($order) {
-            return ($order == 'set') ? $card->set->releaseDate : (($order == 'name') ? $card->set->name : $card->number);
-        });
+        if ($order == 'set') {
+            $order = 'set.releaseDate';
+        } elseif ($order == 'name') {
+            $order = 'set.name';
+        } else {
+            $order = 'number';
+        }
+
+        if ($sort == 'Desc') {
+            $cardCollection = $cardCollection->sortByDesc($order);
+        } else {
+            $cardCollection = $cardCollection->sortBy($order);
+        }
 
         return $cardCollection;
     }
 
     private function groupCardsBySet($cardCollection)
     {
-        $groupedCards = [];
-        foreach ($cardCollection as $card) {
-            $setName = $card->set->name;
-
-            // Vérifiez si le nom de l'ensemble existe déjà dans le tableau
-            if (!isset($groupedCards[$setName])) {
-                $groupedCards[$setName] = [];
-            }
-
-            // Ajoutez la carte au groupe correspondant
-            $groupedCards[$setName][] = $card;
-            // Trier les cartes par numéro décroissant
-            usort($groupedCards[$setName], function ($a, $b) {
-                return $b->number - $a->number;
-            });
-        }
-
-        return $groupedCards;
+        return $cardCollection->groupBy('set.name')->map(function ($group) {
+            return $group->sortByDesc('number');
+        });
     }
+
 
     public function exportCollectionToCsv()
     {
@@ -104,11 +87,10 @@ class CollectionController extends Controller
         $userCollection = Collection::where('user_id', $user->id)->get();
 
         // Créer un objet CSV
-        $csv = Writer::createFromString('');
+        $csv = Writer::createFromFileObject(new \SplTempFileObject());
 
         // Ajouter l'en-tête CSV
         $csv->insertOne(['Card Name', 'Set Name', 'Rarity', 'Number']);
-
         // Ajouter les données de chaque carte à la CSV
         foreach ($userCollection as $card) {
             $cardInfo = Card::find($card->card_id);
@@ -119,7 +101,6 @@ class CollectionController extends Controller
                 $cardInfo->set->name,
                 $cardInfo->rarity,
                 sprintf('%03d', $cardInfo->number) . '/' . sprintf('%03d', $cardInfo->set->cards->count())
-
             ]);
         }
 
@@ -145,9 +126,7 @@ class CollectionController extends Controller
         $newName = $validatedData['name'];
 
         // Update the user's collection name
-        $userCollection = Collection::where('user_id', $user->id)->first();
-        $userCollection->name = $newName;
-        $userCollection->save();
+        $user->collections()->update(['name' => $newName]);
 
         return redirect()->route(COLLECTION_INDEX);
     }
@@ -156,14 +135,8 @@ class CollectionController extends Controller
     {
         $this->authorize('delete', [$card, $user = Auth::user()]);
 
-        // Now that we have checked that the user has the card in their collection,
-
-        // Remove the card from the user's collection
-        $userCollection = Collection::where('user_id', $user->id)->where('card_id', $card->id)->first();
-
-        if ($userCollection) {
-            $userCollection->delete();
-        }
+        // Retirer la carte de la collection de l'utilisateur
+        $user->collections()->where('card_id', $card->id)->delete();
 
         return redirect()->route(COLLECTION_INDEX);
     }
@@ -174,27 +147,20 @@ class CollectionController extends Controller
 
         $user = Auth::user();
 
-        // Check if the card is already in the user's collection
-        $userCollection = Collection::where('user_id', $user->id)->where('card_id', $card->id)->first();
-
-        if ($userCollection) {
-            // Redirect if the card is already in the collection
+        // Vérifier si la carte est déjà dans la collection de l'utilisateur
+        if ($user->collections()->where('card_id', $card->id)->exists()) {
+            // Rediriger si la carte est déjà dans la collection
             return redirect()->route(COLLECTION_INDEX);
         }
 
-        // Add the card to the user's collection
-        $userCollection = new Collection();
-        $userCollection->user_id = $user->id;
-        $userCollection->card_id = $card->id;
+        // Ajouter la carte à la collection de l'utilisateur
+        $user->collections()->create(['card_id' => $card->id]);
 
-        // Save the new card in the user's collection
-        $userCollection->save();
-
-        // Check if the user has collected all cards from the set
+        // Vérifier si l'utilisateur a collecté toutes les cartes de l'ensemble
         $set = $card->set;
         $allSetCardsCollected = $user->hasAllSetCards($set);
 
-        // If the user has collected all cards from the set, fire the event
+        // Si l'utilisateur a collecté toutes les cartes de l'ensemble, déclencher l'événement
         if ($allSetCardsCollected) {
             event(new AllSetCardsCollected($user, $set));
         }
@@ -202,14 +168,13 @@ class CollectionController extends Controller
         return redirect()->route(COLLECTION_INDEX);
     }
 
-
     public function showCollectionOtherUsers()
     {
         // Get the currently authenticated user
         $currentUser = Auth::user();
 
         // Paginate the list of users to avoid a large number of results
-        $users = User::where('id', '!=', $currentUser->id)->paginate(3);
+        $users = User::where('id', '!=', $currentUser->id)->paginate(10);
 
         $cardCollections = [];
 
