@@ -58,28 +58,16 @@ class CollectionController extends Controller
         $cardCollection = [];
 
         // For each card in the user's collection, fetch card information
-        foreach ($userCollection as $card) {
-            $cardInfo = Card::where('id', $card->card_id)->first();
-            array_push($cardCollection, $cardInfo);
-        }
+        $userCollection = Collection::where('user_id', $user->id)->with('card.set')->get();
+        $cardCollection = $userCollection->pluck('card');
 
         return $cardCollection;
     }
 
     private function sortCardCollection($cardCollection, $order, $sort)
     {
-        usort($cardCollection, function ($a, $b) use ($order, $sort) {
-            // Check if the order is set and sort is Asc or Desc
-            if ($order == 'set') {
-                $comparison = $a->set->releaseDate <=> $b->set->releaseDate;
-            } elseif ($order == 'name') {
-                $comparison = strcmp($a->set->name, $b->set->name);
-            } else {
-                $comparison = $a->number <=> $b->number;
-            }
-
-            // If sorting is Desc, reverse the order
-            return ($sort == 'Asc') ? $comparison : -$comparison;
+        $cardCollection = $cardCollection->sortByDesc(function ($card) use ($order) {
+            return ($order == 'set') ? $card->set->releaseDate : (($order == 'name') ? $card->set->name : $card->number);
         });
 
         return $cardCollection;

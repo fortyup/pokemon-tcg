@@ -9,12 +9,12 @@ class Collection extends Model
     protected $table = 'collection';
     protected $fillable = ['user_id', 'card_id'];
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function cards()
+    public function card()
     {
         return $this->belongsTo(Card::class);
     }
