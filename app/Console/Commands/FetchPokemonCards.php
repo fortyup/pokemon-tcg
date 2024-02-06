@@ -21,7 +21,7 @@ class FetchPokemonCards extends Command
     private const API_URL = 'https://api.pokemontcg.io/v2/cards';
     private const PAGE_SIZE = 250;
 
-    public function handle(): void
+    public function handle(): int
     {
         $page = 1;
 
@@ -39,6 +39,8 @@ class FetchPokemonCards extends Command
 
         $this->info('Pokemon data have been fetched and stored in the database.');
         $this->info(Card::where('created_at', '>', now()->subDay())->count() . ' total new cards have been added.');
+
+        return 0;
 
     }
 
