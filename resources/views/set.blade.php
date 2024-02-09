@@ -30,10 +30,10 @@
         </button>
     </form>
 
-    <!-- Card list section -->
-    <div class="card-list flex flex-wrap justify-between">
+    <!-- Card list section using Grid -->
+    <div class="grid grid-cols-5 gap-4">
         @foreach($cards as $card)
-            <div class="card hover:scale-110 transition m-1 w-[calc(20%-10px)]
+            <div class="card hover:scale-110 transition m-1
             @if($card->isInCollection)
                         grayscale
                     @endif">
