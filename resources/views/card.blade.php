@@ -15,13 +15,13 @@
 
     <div class="">
         <!-- Main content area -->
-        <div class="flex">
-            <div>
+        <div class="flex flex-col md:flex-row"> <!-- Modified for responsive layout -->
+            <div class="md:w-1/2"> <!-- Modified for responsive layout -->
                 <!-- Display card image -->
                 <img src="{{ $card->largeImage }}" alt="{{ $card->name }}" class="max-w-md rounded-3xl"
                      style="box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);">
             </div>
-            <div class="p-3 ml-40">
+            <div class="p-3 md:ml-40"> <!-- Modified for responsive layout -->
                 <!-- Card information section -->
                 <section>
                     <div class="flex flex-row justify-between">
@@ -55,7 +55,7 @@
                                     <div class="flex">
                                         @if($ability->type != 'Pokémon Power')
                                             <img src="{{ asset('/images/ability/'.$ability->type.'.png') }}"
-                                                 class="w-24 h-auto" alt="{{ $ability->type }}">
+                                                 class="w-24 h-auto md:w-auto" alt="{{ $ability->type }}"> <!-- Modified for responsive layout -->
                                             <p class="text-2xl ml-2">{{ $ability->name }}</p>
                                         @else
                                             <p class="text-2xl">{{ $ability->name }}</p>
@@ -102,7 +102,8 @@
                 </section>
                 <section>
                     <!-- Display card attributes such as Weakness, Resistance, Retreat Cost, Rarity, and Serial Number -->
-                    <div class="grid grid-cols-3 gap-4 mt-5">
+                    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-5"> <!-- Modified for responsive layout -->
+                        <!-- Remaining content -->
                         <div>
                             <!-- Display Weakness -->
                             @if($card->valueWeakness != null)
@@ -177,7 +178,6 @@
                             <h2 class="uppercase mb-2 text-sm font-light">Serial number:</h2>
                             <p class="font-bold text-xl">{{ $card->number }} / {{ $set->printedTotal }}</p>
                         </div>
-
                     </div>
                 </section>
                 <div class="mt-5">
