@@ -49,22 +49,22 @@
                             </svg>
                         </button>
                         <ul id="user-menu-list"
-                            class="absolute hidden mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5"
+                            class="absolute hidden mt-2 w-36 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 dark:bg-slate-700"
                             role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                             <li role="menuitem">
                                 <a href="{{ route('profile.edit') }}"
-                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your profile</a>
+                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-500">Your profile</a>
                             </li>
                             <li role="menuitem">
                                 <a href="{{ url('/collection') }}"
-                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My
+                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-500">My
                                     collection</a>
                             </li>
                             <li role="menuitem">
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <a href="{{ route('logout') }}"
-                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-500"
                                        onclick="event.preventDefault(); this.closest('form').submit();">Log out</a>
                                 </form>
                             </li>
