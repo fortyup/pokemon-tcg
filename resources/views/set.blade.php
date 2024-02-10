@@ -17,7 +17,7 @@
                 <option value="number" {{ $order === 'number' ? 'selected' : '' }}>Set/Number</option>
             </select>
         </label>
-        <label>
+        <label class="mr-2">
             <!-- Dropdown for sorting -->
             <select name="sort" class="dark:bg-slate-200 dark:text-black rounded">
                 <option value="Asc" {{ $sort === 'Asc' ? 'selected' : '' }}>Asc</option>
@@ -31,7 +31,7 @@
     </form>
 
     <!-- Card list section using Grid -->
-    <div class="grid grid-cols-5 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         @foreach($cards as $card)
             <div class="card hover:scale-110 transition m-1
             @if($card->isInCollection)
