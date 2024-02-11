@@ -43,7 +43,7 @@
                 @endif
                 <a href="{{ route('card', ['card' => $card->id_card]) }}">
                     <!-- Card image -->
-                    <img src="{{ $card->smallImage }}" class="rounded-2xl"
+                    <img src="{{ $card->smallImage }}" class="rounded-2xl mx-auto"
                          style="box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.45);" alt="{{ $card->name }}">
                 </a>
             </div>

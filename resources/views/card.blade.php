@@ -18,7 +18,7 @@
         <div class="flex flex-col md:flex-row w-fit">
             <!-- Display card image -->
             <div class="md:w-1/2 mx-auto">
-                <img src="{{ $card->largeImage }}" alt="{{ $card->name }}" class="max-w-md rounded-3xl"
+                <img src="{{ $card->largeImage }}" alt="{{ $card->name }}" class="max-w-screen-md md:max-w-md rounded-3xl"
                      style="box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);">
             </div>
             <div class="p-3 md:ml-40">
