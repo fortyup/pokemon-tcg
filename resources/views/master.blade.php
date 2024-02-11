@@ -10,7 +10,7 @@
     <!-- Include CSS using Vite -->
     @vite('resources/css/app.css')
 </head>
-<body class="dark:bg-slate-800 dark:text-white flex flex-col min-h-screen w-fit">
+<body class="dark:bg-slate-800 dark:text-white flex flex-col min-h-screen min-w-fit">
 <header class="flex shadow-md w-full h-16">
     <!-- Logo and site title -->
     <a href="{{ route('index') }}" class="flex items-center">

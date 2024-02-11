@@ -15,7 +15,7 @@
 
     <div class="">
         <!-- Main content area -->
-        <div class="flex flex-col md:flex-row">
+        <div class="flex flex-col md:flex-row w-fit">
             <!-- Display card image -->
             <div class="md:w-1/2 mx-auto">
                 <img src="{{ $card->largeImage }}" alt="{{ $card->name }}" class="max-w-md rounded-3xl"
