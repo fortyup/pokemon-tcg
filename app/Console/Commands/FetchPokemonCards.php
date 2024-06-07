@@ -149,7 +149,7 @@ class FetchPokemonCards extends Command
                     [
                         'cost' => $attack['cost'],
                         'convertedEnergyCost' => $attack['convertedEnergyCost'],
-                        'damage' => $attack['damage'],
+                        'damage' => $attack['damage'] ?? null,
                         'text' => $attack['text'] ?? null,
                     ]
                 );
