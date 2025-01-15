@@ -100,7 +100,7 @@ class CollectionController extends Controller
                 $cardInfo->name,
                 $cardInfo->set->name,
                 $cardInfo->rarity,
-                sprintf('%03d', $cardInfo->number) . '/' . sprintf('%03d', $cardInfo->set->cards->count())
+                $cardInfo->number . ' / ' . $cardInfo->set->printedTotal,
             ]);
         }
 
